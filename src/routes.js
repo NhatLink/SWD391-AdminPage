@@ -3,7 +3,9 @@ import React from "react";
 const Account = React.lazy(() => import("./views/Account/Account"));
 const Aution = React.lazy(() => import("./views/Aution/Aution"));
 const Product = React.lazy(() => import("./views/Product/Product"));
-const Transaction = React.lazy(() => import("./views/Transaction/Transaction"));
+const TransactionRequest = React.lazy(() =>
+  import("./views/Transaction/TransactionRequest")
+);
 const Home = React.lazy(() => import("./views/Home/Home"));
 const AccountDetail = React.lazy(() => import("./views/Account/AccountDetail"));
 const AutionDetail = React.lazy(() => import("./views/Aution/AutionDetail"));
@@ -35,7 +37,7 @@ const routes = [
   {
     path: "/transaction",
     name: "Transaction",
-    element: Transaction,
+    element: TransactionRequest,
     exact: true,
   },
 ];

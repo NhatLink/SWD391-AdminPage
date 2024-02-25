@@ -1,19 +1,16 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import React from "react";
 import {
+  CButton,
   CCard,
   CCardBody,
   CCardHeader,
   CCol,
   CRow,
-  CTable,
-  CAvatar,
-  CBadge,
-  CButton,
-  CCollapse,
 } from "@coreui/react";
-import ModalConfirmDelete from "../Aution/ModalConfirmDelete";
+import { useMemo, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ChangeTabAution from "../Aution/ChangeTabAution";
+import ModalConfirmDelete from "../Aution/ModalConfirmDelete";
 import TableAution from "../Aution/TableAution";
 const DetailUser = () => {
   const { userId } = useParams(); // Lấy ID từ URL

@@ -1,17 +1,7 @@
 import React, { useState } from "react";
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CRow,
-  CAccordion,
-  CAccordionBody,
-  CAccordionHeader,
-  CAccordionItem,
-} from "@coreui/react";
+import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
 import TableAution from "src/views/Aution/TableAution";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function Aution() {
   const [data2, setData2] = useState([
     { id: 5, name: "Aution Confirm 5", status: "not active" },

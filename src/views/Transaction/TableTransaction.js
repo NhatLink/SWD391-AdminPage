@@ -12,7 +12,7 @@ import {
 } from "@coreui/react";
 import PropTypes from "prop-types"; // Import PropTypes
 
-const CustomTable = ({ data = [], onUpdate, onDelete }) => {
+const TableTrannsacton = ({ data = [], onUpdate, onDelete }) => {
   // Cung cấp giá trị mặc định cho data
   return (
     <CRow>
@@ -36,6 +36,7 @@ const CustomTable = ({ data = [], onUpdate, onDelete }) => {
           <CTableRow>
             <CTableHeaderCell>ID</CTableHeaderCell>
             <CTableHeaderCell>Name</CTableHeaderCell>
+            <CTableHeaderCell>Money</CTableHeaderCell>
             <CTableHeaderCell>Status</CTableHeaderCell>
             <CTableHeaderCell>Actions</CTableHeaderCell>
           </CTableRow>
@@ -45,11 +46,12 @@ const CustomTable = ({ data = [], onUpdate, onDelete }) => {
             <CTableRow key={index}>
               <CTableDataCell>{item.id}</CTableDataCell>
               <CTableDataCell>{item.name}</CTableDataCell>
+              <CTableDataCell>{item.money}</CTableDataCell>
               <CTableDataCell>
-                {item.status === "active" ? (
-                  <CBadge color="success">Active</CBadge>
+                {item.status === "paid" ? (
+                  <CBadge color="success">Paid</CBadge>
                 ) : (
-                  <CBadge color="warning">Not Active</CBadge>
+                  <CBadge color="warning">Unpaid</CBadge>
                 )}
               </CTableDataCell>
               <CTableDataCell>
@@ -72,11 +74,12 @@ const CustomTable = ({ data = [], onUpdate, onDelete }) => {
   );
 };
 
-CustomTable.propTypes = {
+TableTrannsacton.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
+      money: PropTypes.number.isRequired,
       status: PropTypes.string, // Giả sử rằng status cũng là một phần của data object
     })
   ), // Không còn là isRequired
@@ -84,4 +87,4 @@ CustomTable.propTypes = {
   onDelete: PropTypes.func, // Không bắt buộc
 };
 
-export default CustomTable;
+export default TableTrannsacton;

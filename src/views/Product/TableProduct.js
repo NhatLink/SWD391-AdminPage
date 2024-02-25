@@ -7,7 +7,6 @@ import {
   CTableHeaderCell,
   CTableRow,
   CButton,
-  CBadge,
 } from "@coreui/react";
 import PropTypes from "prop-types"; // Import PropTypes
 

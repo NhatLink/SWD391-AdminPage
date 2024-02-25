@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import {
   CCard,
@@ -6,11 +6,7 @@ import {
   CCardHeader,
   CCol,
   CRow,
-  CTable,
-  CAvatar,
-  CBadge,
   CButton,
-  CCollapse,
 } from "@coreui/react";
 const AutionDetail = () => {
   const { autionId } = useParams(); // Lấy ID từ URL
@@ -25,7 +21,9 @@ const AutionDetail = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Thông Tin Chi Tiết Autionn với ID {autionId} </strong>
+            <strong>
+              Thông Tin Chi Tiết Autionn với ID {autionId} {userEditData.id}{" "}
+            </strong>
           </CCardHeader>
           <CCardBody>
             <p className="text-medium-emphasis small">

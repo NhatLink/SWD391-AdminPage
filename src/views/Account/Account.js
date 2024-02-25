@@ -1,23 +1,11 @@
 import React from "react";
-import ModalConfirmDelete from "./ModalConfirmDelete";
+import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
 import { useState } from "react";
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CRow,
-  CTable,
-  CAvatar,
-  CBadge,
-  CButton,
-  CCollapse,
-} from "@coreui/react";
-import TableAccount from "./TableAccount";
 import { useNavigate } from "react-router-dom";
+import ModalConfirmDelete from "./ModalConfirmDelete";
+import TableAccount from "./TableAccount";
 // import DocsExample  from 'src/components/DocsExample'
 function Account() {
-  const [details, setDetails] = useState([]);
   const navigate = useNavigate();
   const [showDelete, setShowDelete] = useState(false);
   const [userDeleteData, setUserDeleteData] = useState({});

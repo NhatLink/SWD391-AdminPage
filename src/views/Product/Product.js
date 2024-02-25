@@ -1,22 +1,9 @@
 import React from "react";
-import { useState } from "react";
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CRow,
-  CTable,
-  CAvatar,
-  CBadge,
-  CButton,
-  CCollapse,
-} from "@coreui/react";
+import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
 import TableAccount from "./TableProduct";
 import { useNavigate } from "react-router-dom";
 // import DocsExample  from 'src/components/DocsExample'
 function Product() {
-  const [details, setDetails] = useState([]);
   const navigate = useNavigate();
   const handleUpdate = (user) => {
     console.log("Update item with id:", user.id);

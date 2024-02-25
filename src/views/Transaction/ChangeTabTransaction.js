@@ -5,14 +5,9 @@ import CIcon from "@coreui/icons-react";
 import { cilMediaPlay } from "@coreui/icons";
 
 const ChangeTabAution = (props) => {
-  const {
-    chuaDienRaContent,
-    sapDienRaContent,
-    dangDienRaContent,
-    daDienRaContent,
-  } = props;
+  const { requestContent, historyContent } = props;
   // State để quản lý tab hiện tại
-  const [activeTab, setActiveTab] = useState("chuaDienRa");
+  const [activeTab, setActiveTab] = useState("RequestTransaction");
   console.log(activeTab);
 
   // Hàm để thay đổi tab hiện tại
@@ -23,17 +18,11 @@ const ChangeTabAution = (props) => {
   // Xác định nội dung để hiển thị dựa trên tab đang được chọn
   let contentToDisplay;
   switch (activeTab) {
-    case "chuaDienRa":
-      contentToDisplay = chuaDienRaContent;
+    case "RequestTransaction":
+      contentToDisplay = requestContent;
       break;
-    case "sapDienRa":
-      contentToDisplay = sapDienRaContent;
-      break;
-    case "dangDienRa":
-      contentToDisplay = dangDienRaContent;
-      break;
-    case "daDienRa":
-      contentToDisplay = daDienRaContent;
+    case "HistoryTransaction":
+      contentToDisplay = historyContent;
       break;
     default:
       contentToDisplay = <div>Không có nội dung</div>;
@@ -48,38 +37,20 @@ const ChangeTabAution = (props) => {
       <CNav variant="tabs">
         <CNavItem>
           <CNavLink
-            active={activeTab === "chuaDienRa"}
-            onClick={() => changeTab("chuaDienRa")}
+            active={activeTab === "RequestTransaction"}
+            onClick={() => changeTab("RequestTransaction")}
           >
             <CIcon icon={cilMediaPlay} className="me-2" />
-            Chưa diễn ra
+            Request Transaction
           </CNavLink>
         </CNavItem>
         <CNavItem>
           <CNavLink
-            active={activeTab === "sapDienRa"}
-            onClick={() => changeTab("sapDienRa")}
+            active={activeTab === "HistoryTransaction"}
+            onClick={() => changeTab("HistoryTransaction")}
           >
             <CIcon icon={cilMediaPlay} className="me-2" />
-            Sắp diễn ra
-          </CNavLink>
-        </CNavItem>
-        <CNavItem>
-          <CNavLink
-            active={activeTab === "dangDienRa"}
-            onClick={() => changeTab("dangDienRa")}
-          >
-            <CIcon icon={cilMediaPlay} className="me-2" />
-            Đang diễn ra
-          </CNavLink>
-        </CNavItem>
-        <CNavItem>
-          <CNavLink
-            active={activeTab === "daDienRa"}
-            onClick={() => changeTab("daDienRa")}
-          >
-            <CIcon icon={cilMediaPlay} className="me-2" />
-            Đã diễn ra
+            History Transaction
           </CNavLink>
         </CNavItem>
       </CNav>
@@ -93,10 +64,8 @@ const ChangeTabAution = (props) => {
 };
 
 ChangeTabAution.propTypes = {
-  chuaDienRaContent: PropTypes.node,
-  sapDienRaContent: PropTypes.node,
-  dangDienRaContent: PropTypes.node,
-  daDienRaContent: PropTypes.node,
+  requestContent: PropTypes.node,
+  historyContent: PropTypes.node,
 };
 
 export default React.memo(ChangeTabAution);

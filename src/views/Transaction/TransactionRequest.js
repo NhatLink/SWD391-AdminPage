@@ -1,36 +1,26 @@
 import React, { useState } from "react";
 import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
 import ModalConfirmDelete from "./ModalConfirmDelete";
-import TableAution from "src/views/Aution/TableAution";
-import ChangeTabAution from "./ChangeTabAution";
+import TableTrannsacton from "./TableTransaction";
+import ChangeTabTransaction from "./ChangeTabTransaction";
 import { useNavigate } from "react-router-dom";
-function Aution() {
+
+function TransactionRequest() {
   const [showDelete, setShowDelete] = useState(false);
   const [deleteData, setDeleteData] = useState({});
   const [data, setData] = useState([
-    { id: 1, name: "Aution 1", status: "active" },
-    { id: 2, name: "Aution 2", status: "active" },
+    { id: 1, name: "Transac 1", money: 110000, status: "unpaid" },
+    { id: 2, name: "Transac 2", money: 500000, status: "unpaid" },
     // Thêm dữ liệu mẫu khác tại đây
   ]);
   const data1 = [
-    { id: 3, name: "Aution 3", status: "active" },
-    { id: 4, name: "Aution 4", status: "active" },
+    { id: 3, name: "Transac 3", money: 150000, status: "paid" },
+    { id: 4, name: "Transac 4", money: 250000, status: "paid" },
     // Thêm dữ liệu mẫu khác tại đây
   ];
-  const [data2, setData2] = useState([
-    { id: 5, name: "Aution 5", status: "active" },
-    { id: 6, name: "Aution 6", status: "active" },
-    // Thêm dữ liệu mẫu khác tại đây
-  ]);
-  const [data3, setData3] = useState([
-    { id: 7, name: "Aution 7", status: "active" },
-    { id: 8, name: "Aution 8", status: "active" },
-    // Thêm dữ liệu mẫu khác tại đây
-  ]);
-
-  const handleDelete = (aution) => {
-    console.log("Delete item with id:", aution.id);
-    setDeleteData(aution);
+  const handleDelete = (transaction) => {
+    console.log("Delete item with id:", transaction.id);
+    setDeleteData(transaction);
     setShowDelete(true);
   };
 
@@ -52,11 +42,11 @@ function Aution() {
             <p className="text-medium-emphasis small">
               Hiện thị các đấu giá có trong hệ thống
             </p>
-            <ChangeTabAution
-              chuaDienRaContent={
+            <ChangeTabTransaction
+              requestContent={
                 <div>
                   {
-                    <TableAution
+                    <TableTrannsacton
                       data={data}
                       onUpdate={handleUpdateUser}
                       onDelete={handleDelete}
@@ -64,33 +54,11 @@ function Aution() {
                   }
                 </div>
               }
-              sapDienRaContent={
+              historyContent={
                 <div>
                   {
-                    <TableAution
+                    <TableTrannsacton
                       data={data1}
-                      onUpdate={handleUpdateUser}
-                      onDelete={handleDelete}
-                    />
-                  }
-                </div>
-              }
-              dangDienRaContent={
-                <div>
-                  {
-                    <TableAution
-                      data={data2}
-                      onUpdate={handleUpdateUser}
-                      onDelete={handleDelete}
-                    />
-                  }
-                </div>
-              }
-              daDienRaContent={
-                <div>
-                  {
-                    <TableAution
-                      data={data3}
                       onUpdate={handleUpdateUser}
                       onDelete={handleDelete}
                     />
@@ -112,4 +80,4 @@ function Aution() {
   );
 }
 
-export default Aution;
+export default TransactionRequest;

@@ -5,7 +5,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ModalConfirmDelete = (props) => {
-  const { deleteData, showProp, handleClose } = props;
+  const { deleteData = [], showProp, handleClose } = props;
   // const [show, setShow] = useState(false);
 
   //   const handleClose = () => setShow(false);
@@ -37,10 +37,10 @@ const ModalConfirmDelete = (props) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Delete Auction</Modal.Title>
+          <Modal.Title>Delete Transaction</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>You want to delete auction: {deleteData.name}</div>
+          <div>You want to delete transaction: {deleteData.name}</div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
