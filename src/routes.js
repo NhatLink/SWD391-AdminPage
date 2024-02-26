@@ -1,5 +1,5 @@
 import React from "react";
-
+const Profile = React.lazy(() => import("./views/Profile/Profile"));
 const Account = React.lazy(() => import("./views/Account/Account"));
 const Aution = React.lazy(() => import("./views/Aution/Aution"));
 const Product = React.lazy(() => import("./views/Product/Product"));
@@ -38,6 +38,12 @@ const routes = [
     path: "/transaction",
     name: "Transaction",
     element: TransactionRequest,
+    exact: true,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    element: Profile,
     exact: true,
   },
 ];

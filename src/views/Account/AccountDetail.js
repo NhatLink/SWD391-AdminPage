@@ -7,6 +7,7 @@ import {
   CCol,
   CRow,
 } from "@coreui/react";
+import { Row, Col, Card } from "react-bootstrap";
 import { useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ChangeTabAution from "../Aution/ChangeTabAution";
@@ -63,18 +64,41 @@ const DetailUser = () => {
             <strong>Thông Tin Chi Tiết Người Dùng ID {userId} </strong>
           </CCardHeader>
           <CCardBody>
-            <p className="text-medium-emphasis small">
-              Hiện thị chi tiết 1 user trong hệ thống
-            </p>
-            <div>
-              {/* Hiển thị thông tin dựa trên ID lấy được */}
-              <p>Người Dùng: {userEditData.id}</p>
-              <p>Người Dùng: {userEditData.name}</p>
-              <p>Người Dùng: {userEditData.avatar}</p>
-              <p>Người Dùng: {userEditData.registered}</p>
-              <p>Người Dùng: {userEditData.role}</p>
-              <p>Người Dùng: {userEditData.status}</p>
-            </div>
+            <Row className="mt-1">
+              {/* Card bên phải */}
+              <Col md={4}>
+                <Card>
+                  <Card.Img variant="top" src={userEditData.avatar} />
+                  <Card.Body>
+                    <Card.Title>{userEditData.name}</Card.Title>
+                    <Card.Text>{userEditData.email}</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+              {/* Card bên trái */}
+              <Col md={8}>
+                <Card>
+                  <Card.Body>
+                    <Card.Title>Thông Tin Cá Nhân</Card.Title>
+                    <Card.Text>
+                      <strong>Họ và Tên:</strong> {userEditData.name}
+                    </Card.Text>
+                    <Card.Text>
+                      <strong>Email:</strong> {userEditData.email}
+                    </Card.Text>
+                    <Card.Text>
+                      <strong>Registered:</strong> {userEditData.registered}
+                    </Card.Text>
+                    <Card.Text>
+                      <strong>Role:</strong> {userEditData.role}
+                    </Card.Text>
+                    <Card.Text>
+                      <strong>status:</strong> {userEditData.status}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
           </CCardBody>
         </CCard>
       </CCol>

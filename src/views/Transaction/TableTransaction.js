@@ -12,7 +12,7 @@ import {
 } from "@coreui/react";
 import PropTypes from "prop-types"; // Import PropTypes
 
-const TableTrannsacton = ({ data = [], onUpdate, onDelete }) => {
+const TableTrannsacton = ({ data = [], onConfirm, onDelete }) => {
   // Cung cấp giá trị mặc định cho data
   return (
     <CRow>
@@ -55,9 +55,9 @@ const TableTrannsacton = ({ data = [], onUpdate, onDelete }) => {
                 )}
               </CTableDataCell>
               <CTableDataCell>
-                {onUpdate && (
-                  <CButton color="success" onClick={() => onUpdate(item)}>
-                    Detail
+                {onConfirm && (
+                  <CButton color="success" onClick={() => onConfirm(item)}>
+                    Confirm
                   </CButton>
                 )}{" "}
                 {onDelete && (
@@ -83,7 +83,7 @@ TableTrannsacton.propTypes = {
       status: PropTypes.string, // Giả sử rằng status cũng là một phần của data object
     })
   ), // Không còn là isRequired
-  onUpdate: PropTypes.func, // Không bắt buộc
+  onConfirm: PropTypes.func, // Không bắt buộc
   onDelete: PropTypes.func, // Không bắt buộc
 };
 

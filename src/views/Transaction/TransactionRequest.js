@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
 import ModalConfirmDelete from "./ModalConfirmDelete";
+import ModalConfirmTransaction from "./ModalConfirmTransaction";
 import TableTrannsacton from "./TableTransaction";
 import ChangeTabTransaction from "./ChangeTabTransaction";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 function TransactionRequest() {
   const [showDelete, setShowDelete] = useState(false);
   const [deleteData, setDeleteData] = useState({});
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [confirmData, setConfirmData] = useState({});
   const [data, setData] = useState([
     { id: 1, name: "Transac 1", money: 110000, status: "unpaid" },
     { id: 2, name: "Transac 2", money: 500000, status: "unpaid" },
@@ -19,16 +22,17 @@ function TransactionRequest() {
     // Thêm dữ liệu mẫu khác tại đây
   ];
   const handleDelete = (transaction) => {
-    console.log("Delete item with id:", transaction.id);
+    console.log("Delete item with id:", transaction);
     setDeleteData(transaction);
     setShowDelete(true);
   };
 
   const navigate = useNavigate();
-  const handleUpdateUser = (aution) => {
+  const handleConfirm = (transaction) => {
     // Chuyển hướng đến trang UpdateUser và truyền dữ liệu userEditData
-    navigate(`/aution-detail/${aution.id}`);
-    console.log("Update user at id:", aution.id);
+    console.log("confirm trans at id:", transaction);
+    setConfirmData(transaction);
+    setShowConfirm(true);
   };
 
   return (
@@ -48,7 +52,7 @@ function TransactionRequest() {
                   {
                     <TableTrannsacton
                       data={data}
-                      onUpdate={handleUpdateUser}
+                      onConfirm={handleConfirm}
                       onDelete={handleDelete}
                     />
                   }
@@ -56,13 +60,7 @@ function TransactionRequest() {
               }
               historyContent={
                 <div>
-                  {
-                    <TableTrannsacton
-                      data={data1}
-                      onUpdate={handleUpdateUser}
-                      onDelete={handleDelete}
-                    />
-                  }
+                  {<TableTrannsacton data={data1} onDelete={handleDelete} />}
                 </div>
               }
             />
@@ -75,6 +73,13 @@ function TransactionRequest() {
           setShowDelete(false);
         }}
         deleteData={deleteData}
+      />
+      <ModalConfirmTransaction
+        showProp={showConfirm}
+        handleClose={() => {
+          setShowConfirm(false);
+        }}
+        confirmData={confirmData}
       />
     </CRow>
   );
