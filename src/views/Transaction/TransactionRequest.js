@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
 import ModalConfirmDelete from "./ModalConfirmDelete";
 import ModalConfirmTransaction from "./ModalConfirmTransaction";
 import TableTrannsacton from "./TableTransaction";
 import ChangeTabTransaction from "./ChangeTabTransaction";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { actRequestGetByTypeAsync } from "src/store/request/action";
 
 function TransactionRequest() {
   const [showDelete, setShowDelete] = useState(false);
@@ -21,6 +23,16 @@ function TransactionRequest() {
     { id: 4, name: "Transac 4", money: 250000, status: "paid" },
     // Thêm dữ liệu mẫu khác tại đây
   ];
+  const token = localStorage.getItem("ACCESS_TOKEN");
+  const request = useSelector((state) => state.REQUEST.request);
+  console.log("request", request);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    let data = {
+      type_report: "money",
+    };
+    dispatch(actRequestGetByTypeAsync(data, token));
+  }, []);
   const handleDelete = (transaction) => {
     console.log("Delete item with id:", transaction);
     setDeleteData(transaction);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import {
   CButton,
@@ -15,8 +15,57 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser } from "@coreui/icons";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+// import { toast } from "react-toastify";
+import { UserServices } from "../../../services/userServices";
+import { actUserLogin } from "../../../store/user/action";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    // rememberMe: false,
+  });
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.USER.currentUser);
+  console.log("user", user);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    const val = type === "checkbox" ? checked : value;
+    setFormData({ ...formData, [name]: val });
+  };
+  const dispatch = useDispatch();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    UserServices.loginUser(formData)
+      .then((resFetchMe) => {
+        console.log("resFetchMe", resFetchMe);
+        const token = resFetchMe.data.token;
+        const currentUser = resFetchMe.data.user;
+        const role = resFetchMe.data.user.title;
+        UserServices.fetchMe(token)
+          .then((res) => {
+            dispatch(actUserLogin(currentUser, token, role));
+            // toast.success(
+            //   `Bạn đã đăng nhập với role ${role}. Chào mừng đã vào cổng`
+            // );
+            navigate("/");
+          })
+          .catch((err) => alert("Login or password failed"));
+      })
+      .catch((error) => {
+        if (error.response) {
+          // toast.error("Server error:", error.response.data);
+        } else if (error.request) {
+          // toast.error("Network error:", error.request);
+        } else {
+          // toast.error("Error:", error.message);
+        }
+      });
+  };
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -35,8 +84,12 @@ const Login = () => {
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
                       <CFormInput
-                        placeholder="Username"
+                        type="text"
+                        name="username"
+                        placeholder="Enter username"
                         autoComplete="username"
+                        value={formData.userName}
+                        onChange={handleChange}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
@@ -45,13 +98,21 @@ const Login = () => {
                       </CInputGroupText>
                       <CFormInput
                         type="password"
+                        name="password"
                         placeholder="Password"
                         autoComplete="current-password"
+                        style={{ width: "500px" }}
+                        value={formData.password}
+                        onChange={handleChange}
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
+                        <CButton
+                          color="primary"
+                          className="px-4"
+                          onClick={handleSubmit}
+                        >
                           Login
                         </CButton>
                       </CCol>

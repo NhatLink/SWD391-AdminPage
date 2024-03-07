@@ -1,6 +1,11 @@
-import React, { Component, Suspense } from "react";
-import { HashRouter, Route, Routes } from "react-router-dom";
+import React, { Component, Suspense, useEffect } from "react";
+import { HashRouter, Route, Routes, useNavigate } from "react-router-dom";
 import "./scss/style.scss";
+import { ToastContainer } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { UserServices } from "./services/userServices";
+import { actUserLogin } from "./store/user/action";
+import moment from "moment";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -17,9 +22,37 @@ const Register = React.lazy(() => import("./views/pages/register/Register"));
 const Page404 = React.lazy(() => import("./views/pages/page404/Page404"));
 const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
 
-class App extends Component {
-  render() {
-    return (
+// Tạo một component mới để xử lý routing
+function RouterContent() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("ACCESS_TOKEN");
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    } else {
+      UserServices.fetchMe(token)
+        .then((res) => {
+          if (res.data && res.data.user) {
+            const currentUser = res.data.user;
+            const role = res.data.user.title;
+            dispatch(actUserLogin(currentUser, token, role));
+          } else {
+            navigate("/login");
+          }
+        })
+        .catch((err) => {
+          navigate("/login");
+        });
+    }
+  }, [navigate, token, dispatch]);
+
+  return null; // Không cần render gì trong trường hợp này
+}
+
+function App() {
+  return (
+    <>
       <HashRouter>
         <Suspense fallback={loading}>
           <Routes>
@@ -34,10 +67,23 @@ class App extends Component {
             <Route exact path="/500" name="Page 500" element={<Page500 />} />
             <Route path="*" name="Home" element={<DefaultLayout />} />
           </Routes>
+          <RouterContent /> {/* Sử dụng RouterContent ở đây */}
         </Suspense>
       </HashRouter>
-    );
-  }
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+    </>
+  );
 }
 
 export default App;
