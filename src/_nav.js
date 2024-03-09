@@ -19,10 +19,22 @@ const _nav = [
   //   name: "Account",
   // },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: "Account",
-    to: "/account",
+    // to: "/account",
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: "Account List",
+        to: "/account",
+      },
+      {
+        component: CNavItem,
+        name: "Ban User Request",
+        to: "/ban-request",
+      },
+    ],
   },
 
   // {
@@ -39,11 +51,6 @@ const _nav = [
         component: CNavItem,
         name: "Aution",
         to: "/aution",
-      },
-      {
-        component: CNavItem,
-        name: "AutionConfirm",
-        to: "/aution-confirm",
       },
     ],
   },

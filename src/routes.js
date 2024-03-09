@@ -3,6 +3,7 @@ const Profile = React.lazy(() => import("./views/Profile/Profile"));
 const Account = React.lazy(() => import("./views/Account/Account"));
 const Aution = React.lazy(() => import("./views/Aution/Aution"));
 const Product = React.lazy(() => import("./views/Product/Product"));
+const ProductDetail = React.lazy(() => import("./views/Product/ProductDetail"));
 const TransactionRequest = React.lazy(() =>
   import("./views/Transaction/TransactionRequest")
 );
@@ -10,6 +11,7 @@ const Home = React.lazy(() => import("./views/Home/Home"));
 const AccountDetail = React.lazy(() => import("./views/Account/AccountDetail"));
 const AutionDetail = React.lazy(() => import("./views/Aution/AutionDetail"));
 const AutionConfirm = React.lazy(() => import("./views/Aution/AuctionConfirm"));
+const BanRequest = React.lazy(() => import("./views/Account Ban/BanRequest"));
 
 const routes = [
   { path: "/", exact: true, name: "Home", element: Home },
@@ -20,9 +22,15 @@ const routes = [
     element: AccountDetail,
     exact: true,
   },
+  {
+    path: "/ban-request",
+    name: "Ban Request",
+    element: BanRequest,
+    exact: true,
+  },
   { path: "/aution", name: "Aution", element: Aution, exact: true },
   {
-    path: "/aution-detail/:autionId",
+    path: "/aution-detail/:auctionId",
     name: "Aution Detail",
     element: AutionDetail,
     exact: true,
@@ -34,6 +42,12 @@ const routes = [
     exact: true,
   },
   { path: "/product", name: "Product", element: Product, exact: true },
+  {
+    path: "/product-detail/:productId",
+    name: "Product Detail",
+    element: ProductDetail,
+    exact: true,
+  },
   {
     path: "/transaction",
     name: "Transaction",

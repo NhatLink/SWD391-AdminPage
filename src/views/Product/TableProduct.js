@@ -7,73 +7,82 @@ import {
   CTableHeaderCell,
   CTableRow,
   CButton,
+  CRow,
 } from "@coreui/react";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types"; // Import PropTypes
 
-const TableAccount = (props) => {
-  const { data, onUpdate, onDelete } = props;
-
+const TableProduct = (props) => {
+  const { data = [], onUpdate, onDelete } = props;
   return (
-    <CTable align="middle" className="mb-0 border" hover responsive>
-      <CTableHead color="light">
-        <CTableRow>
-          <CTableHeaderCell>ID</CTableHeaderCell>
-          <CTableHeaderCell>Name</CTableHeaderCell>
-          <CTableHeaderCell>image</CTableHeaderCell>
-          <CTableHeaderCell>Registered</CTableHeaderCell>
-          <CTableHeaderCell>category</CTableHeaderCell>
-          <CTableHeaderCell>currentBid</CTableHeaderCell>
-          <CTableHeaderCell>Actions</CTableHeaderCell>
-        </CTableRow>
-      </CTableHead>
-      <CTableBody>
-        {data.map((item, index) => (
-          <CTableRow key={index}>
-            <CTableDataCell>{item.id}</CTableDataCell>
-            <CTableDataCell>{item.name}</CTableDataCell>
-            <CTableDataCell>{item.image}</CTableDataCell>
-            <CTableDataCell>{item.registered}</CTableDataCell>
-            <CTableDataCell>{item.category}</CTableDataCell>
-            <CTableDataCell>{item.currentBid}</CTableDataCell>
-            {/* <CTableDataCell>
-              {item.status === "Active" ? (
-                <CBadge color="success">Active</CBadge>
-              ) : (
-                <CBadge color="danger">Banned</CBadge>
-              )}
-            </CTableDataCell> */}
-            <CTableDataCell>
-              {onUpdate && (
-                <CButton color="success" onClick={() => onUpdate(item)}>
-                  Detail
-                </CButton>
-              )}{" "}
-              {onDelete && (
-                <CButton color="danger" onClick={() => onDelete(item)}>
-                  Delete
-                </CButton>
-              )}
-            </CTableDataCell>
+    <CRow>
+      <Col xs="auto">
+        {" "}
+        {/* Sử dụng xs="auto" để ô chỉ chiếm không gian cần thiết */}
+        <Form className="d-flex mb-3" role="search">
+          <Form.Control
+            className="me-2"
+            type="search"
+            placeholder="Search Name Auction"
+            aria-label="Search"
+          />
+          <Button variant="outline-success" type="submit">
+            Search
+          </Button>
+        </Form>
+      </Col>
+      <CTable align="middle" className="mb-0 border" hover responsive>
+        <CTableHead color="light">
+          <CTableRow>
+            <CTableHeaderCell>ID</CTableHeaderCell>
+            <CTableHeaderCell>Name</CTableHeaderCell>
+            <CTableHeaderCell>Host</CTableHeaderCell>
+            <CTableHeaderCell>status</CTableHeaderCell>
+            <CTableHeaderCell>Actions</CTableHeaderCell>
           </CTableRow>
-        ))}
-      </CTableBody>
-    </CTable>
+        </CTableHead>
+        <CTableBody>
+          {data.map((item, index) => (
+            <CTableRow key={index}>
+              <CTableDataCell>{index + 1}</CTableDataCell>
+              <CTableDataCell>{item?.name}</CTableDataCell>
+              <CTableDataCell>{item?.host_id?.fullName}</CTableDataCell>
+              <CTableDataCell>{item?.status}</CTableDataCell>
+              <CTableDataCell>
+                {onUpdate && (
+                  <CButton color="success" onClick={() => onUpdate(item)}>
+                    Detail
+                  </CButton>
+                )}{" "}
+                {onDelete && (
+                  <CButton color="danger" onClick={() => onDelete(item)}>
+                    Delete
+                  </CButton>
+                )}
+              </CTableDataCell>
+            </CTableRow>
+          ))}
+        </CTableBody>
+      </CTable>
+    </CRow>
   );
 };
 
-TableAccount.propTypes = {
+TableProduct.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
+      id: PropTypes.number,
+      name: PropTypes.string,
       avatar: PropTypes.string, // Assuming avatar, registered, role, and status are optional
       registered: PropTypes.string,
       role: PropTypes.string,
-      status: PropTypes.string,
+      status: PropTypes.bool,
     })
-  ).isRequired,
+  ),
   onUpdate: PropTypes.func,
   onDelete: PropTypes.func,
 };
 
-export default TableAccount;
+export default TableProduct;

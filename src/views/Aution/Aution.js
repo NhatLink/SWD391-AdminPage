@@ -1,43 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
-import ModalConfirmDelete from "./ModalConfirmDelete";
+// import ModalConfirmDelete from "./ModalConfirmDelete";
 import TableAution from "src/views/Aution/TableAution";
 import ChangeTabAution from "./ChangeTabAution";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  actNotYetAuctionGetAsync,
+  actAboutToAuctionGetAsync,
+  actAuctioningAuctionGetAsync,
+  actAuctionedAuctionGetAsync,
+} from "src/store/auction/action";
 function Aution() {
-  const [showDelete, setShowDelete] = useState(false);
-  const [deleteData, setDeleteData] = useState({});
-  const [data, setData] = useState([
-    { id: 1, name: "Aution 1", status: "active" },
-    { id: 2, name: "Aution 2", status: "active" },
-    // Thêm dữ liệu mẫu khác tại đây
-  ]);
-  const data1 = [
-    { id: 3, name: "Aution 3", status: "active" },
-    { id: 4, name: "Aution 4", status: "active" },
-    // Thêm dữ liệu mẫu khác tại đây
-  ];
-  const [data2, setData2] = useState([
-    { id: 5, name: "Aution 5", status: "active" },
-    { id: 6, name: "Aution 6", status: "active" },
-    // Thêm dữ liệu mẫu khác tại đây
-  ]);
-  const [data3, setData3] = useState([
-    { id: 7, name: "Aution 7", status: "active" },
-    { id: 8, name: "Aution 8", status: "active" },
-    // Thêm dữ liệu mẫu khác tại đây
-  ]);
+  // const [showDelete, setShowDelete] = useState(false);
+  // const [deleteData, setDeleteData] = useState({});
 
-  const handleDelete = (aution) => {
-    console.log("Delete item with id:", aution.id);
-    setDeleteData(aution);
-    setShowDelete(true);
-  };
+  const token = localStorage.getItem("ACCESS_TOKEN");
+  const notYetAuction = useSelector((state) => state.AUCTION.notYetAuction);
+  const aboutToAuction = useSelector((state) => state.AUCTION.aboutToAuction);
+  const auctioningAuction = useSelector((state) => state.AUCTION.auctioning);
+  const auctionedAuction = useSelector((state) => state.AUCTION.auctined);
+
+  console.log("Not yet:  ", notYetAuction);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(actNotYetAuctionGetAsync(token));
+    dispatch(actAboutToAuctionGetAsync(token));
+    dispatch(actAuctioningAuctionGetAsync(token));
+    dispatch(actAuctionedAuctionGetAsync(token));
+  }, [dispatch, token]);
+  // const handleDelete = (aution) => {
+  //   console.log("Delete item with id:", aution.id);
+  //   setDeleteData(aution);
+  //   setShowDelete(true);
+  // };
 
   const navigate = useNavigate();
   const handleUpdateUser = (aution) => {
     // Chuyển hướng đến trang UpdateUser và truyền dữ liệu userEditData
-    navigate(`/aution-detail/${aution.id}`);
+    navigate(`/aution-detail/${aution._id}`);
     console.log("Update user at id:", aution.id);
   };
 
@@ -57,9 +58,9 @@ function Aution() {
                 <div>
                   {
                     <TableAution
-                      data={data}
+                      data={notYetAuction}
                       onUpdate={handleUpdateUser}
-                      onDelete={handleDelete}
+                      // onDelete={handleDelete}
                     />
                   }
                 </div>
@@ -68,9 +69,9 @@ function Aution() {
                 <div>
                   {
                     <TableAution
-                      data={data1}
+                      data={aboutToAuction}
                       onUpdate={handleUpdateUser}
-                      onDelete={handleDelete}
+                      // onDelete={handleDelete}
                     />
                   }
                 </div>
@@ -79,9 +80,9 @@ function Aution() {
                 <div>
                   {
                     <TableAution
-                      data={data2}
+                      data={auctioningAuction}
                       onUpdate={handleUpdateUser}
-                      onDelete={handleDelete}
+                      // onDelete={handleDelete}
                     />
                   }
                 </div>
@@ -90,9 +91,9 @@ function Aution() {
                 <div>
                   {
                     <TableAution
-                      data={data3}
+                      data={auctionedAuction}
                       onUpdate={handleUpdateUser}
-                      onDelete={handleDelete}
+                      // onDelete={handleDelete}
                     />
                   }
                 </div>
@@ -101,13 +102,13 @@ function Aution() {
           </CCardBody>
         </CCard>
       </CCol>
-      <ModalConfirmDelete
+      {/* <ModalConfirmDelete
         showProp={showDelete}
         handleClose={() => {
           setShowDelete(false);
         }}
         deleteData={deleteData}
-      />
+      /> */}
     </CRow>
   );
 }

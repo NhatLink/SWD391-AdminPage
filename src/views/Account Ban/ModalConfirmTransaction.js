@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 
 const ModalConfirmTransaction = (props) => {
   const { confirmData = [], showProp, handleClose } = props;
-  const [moneyToAdd, setMoneyToAdd] = useState();
+  // const [moneyToAdd, setMoneyToAdd] = useState();
   const [note, setNote] = useState("Cảm ơn quý khách");
   console.log("Confirm data: ", confirmData);
   const token = localStorage.getItem("ACCESS_TOKEN");
@@ -24,33 +24,29 @@ const ModalConfirmTransaction = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!+moneyToAdd) {
-      toast.error("Vui lòng điền số tiền để add");
-      return;
-    }
+    // if (!moneyToAdd) {
+    //   toast.error("Vui lòng điền số để ");
+    //   return;
+    // }
 
     let data = {
       reportRequestId: confirmData._id,
-      depositAmount: +moneyToAdd,
+      // depositAmount: moneyToAdd,
       note: note,
     };
-    console.log("Data add request: ", data);
-    console.log("Money Add: ", moneyToAdd);
-    // try {
-    // Giả sử dispatch sẽ trả về Promise
-    dispatch(actRequestConfirmAsync(data, token));
-    // dispatch(actRequestGetMoneyPaidAsync(token));
-    // dispatch(actRequestGetMoneyUnpaidAsync(token));
-    toast.success(
-      `Bạn đã add ${moneyToAdd} vào tài khoản ${confirmData.user_id.fullName} `
-    );
-    setMoneyToAdd();
-    setNote("Cảm ơn quý khách");
-    handleClose();
-    // } catch (error) {
-    //   // Xử lý lỗi nếu có
-    //   toast.error("Có lỗi xảy ra, vui lòng thử lại!");
-    // }
+
+    try {
+      // Giả sử dispatch sẽ trả về Promise
+      await dispatch(actRequestConfirmAsync(data, token));
+      await dispatch(actRequestGetMoneyPaidAsync(token));
+      await dispatch(actRequestGetMoneyUnpaidAsync(token));
+      toast.success(`Bạn đã ban tài khoản ${confirmData.user_id.fullName} `);
+      setNote("");
+      handleClose();
+    } catch (error) {
+      // Xử lý lỗi nếu có
+      toast.error("Có lỗi xảy ra, vui lòng thử lại!");
+    }
   };
 
   return (
@@ -74,7 +70,7 @@ const ModalConfirmTransaction = (props) => {
           </div>
           <div>Money on request: {confirmData?.description}</div>
           <Form className="mt-2">
-            <Form.Group
+            {/* <Form.Group
               as={Row}
               className="justify-content-md-center mb-3"
               controlId="formHorizontalMoney"
@@ -90,7 +86,7 @@ const ModalConfirmTransaction = (props) => {
                   onChange={(e) => setMoneyToAdd(e.target.value)}
                 />
               </Col>
-            </Form.Group>
+            </Form.Group> */}
             <Form.Group
               as={Row}
               className="justify-content-md-center mb-3"

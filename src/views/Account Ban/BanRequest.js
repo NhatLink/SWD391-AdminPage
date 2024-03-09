@@ -12,7 +12,7 @@ import {
 } from "src/store/request/action";
 import { toast } from "react-toastify";
 
-function TransactionRequest() {
+function BanRequest() {
   // const [showDelete, setShowDelete] = useState(false);
   // const [deleteData, setDeleteData] = useState({});
   const [showConfirm, setShowConfirm] = useState(false);
@@ -27,7 +27,7 @@ function TransactionRequest() {
   useEffect(() => {
     dispatch(actRequestGetMoneyPaidAsync(token));
     dispatch(actRequestGetMoneyUnpaidAsync(token));
-  }, []);
+  }, [dispatch, token]);
   // const handleDelete = (transaction) => {
   //   console.log("Delete item with id:", transaction);
   //   setDeleteData(transaction);
@@ -47,11 +47,11 @@ function TransactionRequest() {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Aution</strong>
+            <strong>Ban Request</strong>
           </CCardHeader>
           <CCardBody>
             <p className="text-medium-emphasis small">
-              Hiện thị các đấu giá có trong hệ thống
+              Hiện thị các yêu cầu ban user
             </p>
             <ChangeTabTransaction
               requestContent={
@@ -97,4 +97,4 @@ function TransactionRequest() {
   );
 }
 
-export default TransactionRequest;
+export default BanRequest;

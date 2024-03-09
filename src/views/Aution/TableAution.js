@@ -10,32 +10,44 @@ import {
   CBadge,
   CRow,
 } from "@coreui/react";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { format } from "date-fns";
 import PropTypes from "prop-types"; // Import PropTypes
 
 const CustomTable = ({ data = [], onUpdate, onDelete }) => {
-  // Cung cấp giá trị mặc định cho data
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return format(date, "dd/MM/yyyy - HH:mm");
+  };
   return (
     <CRow>
-      <p className="small d-none d-md-flex me-auto">
-        {/* <CCardBody> */}
-        <form className="d-flex" role="search">
-          <input
-            className="form-control me-2"
+      <Col xs="auto">
+        {" "}
+        {/* Sử dụng xs="auto" để ô chỉ chiếm không gian cần thiết */}
+        <Form className="d-flex mb-3" role="search">
+          <Form.Control
+            className="me-2"
             type="search"
-            placeholder="Search"
+            placeholder="Search Name Auction"
             aria-label="Search"
-          ></input>
-          <button className="btn btn-outline-success" type="submit">
+          />
+          <Button variant="outline-success" type="submit">
             Search
-          </button>
-        </form>
-        {/* </CCardBody> */}
-      </p>
+          </Button>
+        </Form>
+      </Col>
       <CTable align="middle" className="mb-0 border" hover responsive>
         <CTableHead color="light">
           <CTableRow>
             <CTableHeaderCell>ID</CTableHeaderCell>
             <CTableHeaderCell>Name</CTableHeaderCell>
+            <CTableHeaderCell>Host</CTableHeaderCell>
+            <CTableHeaderCell>Regitration</CTableHeaderCell>
+            <CTableHeaderCell>Start Time</CTableHeaderCell>
+            <CTableHeaderCell>End Time</CTableHeaderCell>
             <CTableHeaderCell>Status</CTableHeaderCell>
             <CTableHeaderCell>Actions</CTableHeaderCell>
           </CTableRow>
@@ -43,14 +55,17 @@ const CustomTable = ({ data = [], onUpdate, onDelete }) => {
         <CTableBody>
           {data.map((item, index) => (
             <CTableRow key={index}>
-              <CTableDataCell>{item.id}</CTableDataCell>
-              <CTableDataCell>{item.name}</CTableDataCell>
+              <CTableDataCell>{index + 1}</CTableDataCell>
+              <CTableDataCell>{item?.product_id?.name}</CTableDataCell>
+              <CTableDataCell>{item?.host_id?.fullName}</CTableDataCell>
               <CTableDataCell>
-                {item.status === "active" ? (
-                  <CBadge color="success">Active</CBadge>
-                ) : (
-                  <CBadge color="warning">Not Active</CBadge>
-                )}
+                {formatDate(item?.regitration_start_time)} -{" "}
+                {formatDate(item?.regitration_end_time)}
+              </CTableDataCell>
+              <CTableDataCell>{formatDate(item?.start_time)}</CTableDataCell>
+              <CTableDataCell>{formatDate(item?.end_time)}</CTableDataCell>
+              <CTableDataCell>
+                <CBadge color="danger">{item?.status}</CBadge>
               </CTableDataCell>
               <CTableDataCell>
                 {onUpdate && (
@@ -75,8 +90,8 @@ const CustomTable = ({ data = [], onUpdate, onDelete }) => {
 CustomTable.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
+      id: PropTypes.number,
+      name: PropTypes.string,
       status: PropTypes.string, // Giả sử rằng status cũng là một phần của data object
     })
   ), // Không còn là isRequired

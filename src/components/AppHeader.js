@@ -20,8 +20,9 @@ import { logo } from "src/assets/brand/logo";
 
 const AppHeader = () => {
   const dispatch = useDispatch();
-  const sidebarShow = useSelector((state) => state.sidebarShow);
-
+  // const sidebarShow = useSelector((state) => state.sidebarShow);
+  const sidebarShow = useSelector((state) => state.sidebar.sidebarShow);
+  console.log("sideBar: ", sidebarShow);
   return (
     <CHeader position="sticky" className="mb-4">
       <CContainer fluid>

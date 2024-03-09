@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { UserServices } from "./services/userServices";
 import { actUserLogin } from "./store/user/action";
+import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
 
 const loading = (

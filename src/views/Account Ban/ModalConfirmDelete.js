@@ -37,10 +37,10 @@ const ModalConfirmDelete = (props) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Delete Transaction</Modal.Title>
+          <Modal.Title>Delete Request</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>You want to delete transaction: {deleteData.name}</div>
+          <div>You want to delete request: {deleteData.name}</div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

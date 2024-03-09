@@ -17,10 +17,10 @@ import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser } from "@coreui/icons";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { toast } from "react-toastify";
 import { UserServices } from "../../../services/userServices";
 import { actUserLogin } from "../../../store/user/action";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -49,20 +49,20 @@ const Login = () => {
         UserServices.fetchMe(token)
           .then((res) => {
             dispatch(actUserLogin(currentUser, token, role));
-            // toast.success(
-            //   `Bạn đã đăng nhập với role ${role}. Chào mừng đã vào cổng`
-            // );
+            toast.success(
+              `Bạn đã đăng nhập với role ${role}. Chào mừng đã vào cổng`
+            );
             navigate("/");
           })
           .catch((err) => alert("Login or password failed"));
       })
       .catch((error) => {
         if (error.response) {
-          // toast.error("Server error:", error.response.data);
+          toast.error("Server error:", error.response.data);
         } else if (error.request) {
-          // toast.error("Network error:", error.request);
+          toast.error("Network error:", error.request);
         } else {
-          // toast.error("Error:", error.message);
+          toast.error("Error:", error.message);
         }
       });
   };

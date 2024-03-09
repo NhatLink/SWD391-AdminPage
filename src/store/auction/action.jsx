@@ -54,9 +54,9 @@ export function actAuctionGetAsync(token) {
       });
   };
 }
-export function actNotYetAuctionGetAsync(id, token) {
+export function actNotYetAuctionGetAsync(token) {
   return (dispatch) => {
-    AuctionServices.getAuctionNotYetAuctionedByUser(id, token)
+    AuctionServices.getAuctionNotYetAuctionedByUser(token)
       .then((response) => {
         console.log("dataAuction", response);
         if (response.status === 200 || response.status === 201) {
@@ -73,9 +73,9 @@ export function actNotYetAuctionGetAsync(id, token) {
       });
   };
 }
-export function actAboutToAuctionGetAsync(id, token) {
+export function actAboutToAuctionGetAsync(token) {
   return (dispatch) => {
-    AuctionServices.getAuctionAboutToAuctionByUser(id, token)
+    AuctionServices.getAuctionAboutToAuctionByUser(token)
       .then((response) => {
         console.log("dataAuction", response);
         if (response.status === 200 || response.status === 201) {
@@ -92,9 +92,9 @@ export function actAboutToAuctionGetAsync(id, token) {
       });
   };
 }
-export function actAuctioningAuctionGetAsync(id, token) {
+export function actAuctioningAuctionGetAsync(token) {
   return (dispatch) => {
-    AuctionServices.getAuctioningByUser(id, token)
+    AuctionServices.getAuctioningByUser(token)
       .then((response) => {
         console.log("dataAuction", response);
         if (response.status === 200 || response.status === 201) {
@@ -111,9 +111,9 @@ export function actAuctioningAuctionGetAsync(id, token) {
       });
   };
 }
-export function actAuctionedAuctionGetAsync(id, token) {
+export function actAuctionedAuctionGetAsync(token) {
   return (dispatch) => {
-    AuctionServices.getAuctionedByUser(id, token)
+    AuctionServices.getAuctionedByUser(token)
       .then((response) => {
         console.log("dataAuction", response);
         if (response.status === 200 || response.status === 201) {

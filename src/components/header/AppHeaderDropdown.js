@@ -40,7 +40,11 @@ const AppHeaderDropdown = () => {
         </CDropdownItem>
         <CDropdownDivider />
         <CDropdownItem href="#/login">
-          <CIcon icon={cilLockLocked} className="me-2" />
+          <CIcon
+            icon={cilLockLocked}
+            className="me-2"
+            onClick={() => localStorage.removeItem("ACCESS_TOKEN")}
+          />
           Log out
         </CDropdownItem>
       </CDropdownMenu>
