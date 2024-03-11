@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
 // import ModalConfirmDelete from "./ModalConfirmDelete";
-import ModalConfirmTransaction from "./ModalConfirmTransaction";
+import ModalConfirmTransaction from "./ModalConfirmBanUser";
 import TableTrannsacton from "./TableTransaction";
 import ChangeTabTransaction from "./ChangeTabTransaction";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  actRequestGetMoneyPaidAsync,
-  actRequestGetMoneyUnpaidAsync,
+  actBanRequestGetAsync,
+  actAlreadyBanRequestGetAsync,
 } from "src/store/request/action";
 import { toast } from "react-toastify";
 
@@ -19,14 +19,16 @@ function BanRequest() {
   const [confirmData, setConfirmData] = useState({});
 
   const token = localStorage.getItem("ACCESS_TOKEN");
-  const requestPaid = useSelector((state) => state.REQUEST.requestPaid);
-  const requestUnpaid = useSelector((state) => state.REQUEST.requestUnpaid);
-  // console.log("request Paid:  ", requestPaid);
-  // console.log("request UnPaid: ", requestUnpaid);
+  const banRequest = useSelector((state) => state.REQUEST.banRequest);
+  const alreadyBanRequest = useSelector(
+    (state) => state.REQUEST.alreadyBanRequest
+  );
+  console.log("request Ban:  ", banRequest);
+  console.log("request Has Ban: ", alreadyBanRequest);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(actRequestGetMoneyPaidAsync(token));
-    dispatch(actRequestGetMoneyUnpaidAsync(token));
+    dispatch(actBanRequestGetAsync(token));
+    dispatch(actAlreadyBanRequestGetAsync(token));
   }, [dispatch, token]);
   // const handleDelete = (transaction) => {
   //   console.log("Delete item with id:", transaction);
@@ -58,7 +60,7 @@ function BanRequest() {
                 <div>
                   {
                     <TableTrannsacton
-                      data={requestUnpaid}
+                      data={banRequest}
                       onConfirm={handleConfirm}
                       // onDelete={handleDelete}
                     />
@@ -69,7 +71,7 @@ function BanRequest() {
                 <div>
                   {
                     <TableTrannsacton
-                      data={requestPaid}
+                      data={alreadyBanRequest}
                       // onDelete={handleDelete}
                     />
                   }

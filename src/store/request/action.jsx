@@ -77,3 +77,45 @@ export function actRequestGetMoneyPaidAsync(token) {
       });
   };
 }
+
+export function actBanRequestGetAsync(token) {
+  return (dispatch) => {
+    console.log("request");
+    ReportRequestServices.getByBanRequest(token)
+      .then((response) => {
+        console.log("dataRequest", response);
+        if (response.status === 200 || response.status === 201) {
+          dispatch(banRequest(response.data));
+        } else {
+          // toast.error("get all syllabus to fail");
+          console.log("fail");
+        }
+      })
+      .catch((error) => {
+        // Xử lý lỗi nếu có
+        console.error("Error while fetching all products:", error);
+        // Nếu bạn muốn dispatch một action để xử lý lỗi, bạn có thể thực hiện ở đây
+      });
+  };
+}
+
+export function actAlreadyBanRequestGetAsync(token) {
+  return (dispatch) => {
+    console.log("request");
+    ReportRequestServices.getByAlreadyBanRequest(token)
+      .then((response) => {
+        console.log("dataRequest", response);
+        if (response.status === 200 || response.status === 201) {
+          dispatch(alreadyBanRequest(response.data));
+        } else {
+          // toast.error("get all syllabus to fail");
+          console.log("fail");
+        }
+      })
+      .catch((error) => {
+        // Xử lý lỗi nếu có
+        console.error("Error while fetching all products:", error);
+        // Nếu bạn muốn dispatch một action để xử lý lỗi, bạn có thể thực hiện ở đây
+      });
+  };
+}

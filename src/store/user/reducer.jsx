@@ -1,6 +1,7 @@
 import {
   ACT_USER_LOGIN,
   ACT_USER_NOT_FETCH_ME,
+  ALL_USER,
   // GET_ALL_ADMIN_AND_SUPERADMIN_USER,
   // GET_ALL_ADMIN_USER,
   // GET_ALL_TRAINEE_USER,
@@ -15,6 +16,7 @@ const initialState = {
   users: [],
   token: null,
   currentUser: null,
+  allUser: [],
   // role: null,
   // trainer: [],
   // admin: [],
@@ -69,6 +71,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         token: action.payload,
+      };
+    case ALL_USER:
+      return {
+        ...state,
+        allUser: action.payload,
       };
     // case GET_ALL_USER_FAKE:
     //   return {

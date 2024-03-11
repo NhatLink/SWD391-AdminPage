@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   CTable,
   CTableBody,
@@ -14,9 +14,30 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types"; // Import PropTypes
+import { format } from "date-fns";
+// import { actAllUserGetAsync } from "src/store/user/action";
+// import { useDispatch, useSelector } from "react-redux";
 
-const TableProduct = (props) => {
+const TableWalletHistory = (props) => {
   const { data = [], onUpdate, onDelete } = props;
+  // const [userEditData, setUserEditData] = useState();
+  // const token = localStorage.getItem("ACCESS_TOKEN");
+  // const allUser = useSelector((state) => state.USER.allUser);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(actAllUserGetAsync(token));
+  // }, [dispatch, token]);
+  // useEffect(() => {
+  //   const item = allUser.find(
+  //     (i) => i.wallet_id.user_id === data?.wallet_id?.user_id
+  //   );
+  //   setUserEditData(item);
+  // }, [allUser, data?.wallet_id?.user_id]);
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return format(date, "dd/MM/yyyy - HH:mm");
+  };
   return (
     <CRow>
       <Col xs="auto">
@@ -38,9 +59,9 @@ const TableProduct = (props) => {
         <CTableHead color="light">
           <CTableRow>
             <CTableHeaderCell>ID</CTableHeaderCell>
-            <CTableHeaderCell>Name</CTableHeaderCell>
-            <CTableHeaderCell>Host</CTableHeaderCell>
-            <CTableHeaderCell>status</CTableHeaderCell>
+            <CTableHeaderCell>Type</CTableHeaderCell>
+            <CTableHeaderCell>Amount</CTableHeaderCell>
+            <CTableHeaderCell>Date</CTableHeaderCell>
             <CTableHeaderCell>Actions</CTableHeaderCell>
           </CTableRow>
         </CTableHead>
@@ -48,15 +69,20 @@ const TableProduct = (props) => {
           {data.map((item, index) => (
             <CTableRow key={index}>
               <CTableDataCell>{index + 1}</CTableDataCell>
-              <CTableDataCell>{item?.name}</CTableDataCell>
-              <CTableDataCell>{item?.host_id?.fullName}</CTableDataCell>
               <CTableDataCell>
-                {item?.status === true ? (
-                  <CBadge color="danger">Not Auction</CBadge>
+                {item?.type === "deposit" ? (
+                  <CBadge color="success">Deposit</CBadge>
                 ) : (
-                  <CBadge color="success"> Auction</CBadge>
+                  <CBadge color="danger">Withdraw</CBadge>
                 )}
               </CTableDataCell>
+              {item?.type === "deposit" ? (
+                <CTableDataCell>+{item?.amount}</CTableDataCell>
+              ) : (
+                <CTableDataCell>-{item?.amount}</CTableDataCell>
+              )}
+              {/* <CTableDataCell>{item?.host_id?.fullName}</CTableDataCell> */}
+              <CTableDataCell>{formatDate(item?.timestamp)}</CTableDataCell>
               <CTableDataCell>
                 {onUpdate && (
                   <CButton color="success" onClick={() => onUpdate(item)}>
@@ -77,7 +103,7 @@ const TableProduct = (props) => {
   );
 };
 
-TableProduct.propTypes = {
+TableWalletHistory.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -92,4 +118,4 @@ TableProduct.propTypes = {
   onDelete: PropTypes.func,
 };
 
-export default TableProduct;
+export default TableWalletHistory;

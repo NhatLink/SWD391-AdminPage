@@ -4,6 +4,14 @@ export const NOT_YET_AUCTION = "NOT_YET_AUCTION";
 export const ABOUT_TO_AUCTION = "ABOUT_TO_AUCTION";
 export const AUCTIONING = "AUCTIONING";
 export const AUCTIONED = "AUCTIONED";
+export const NOT_YET_AUCTION_ID = "NOT_YET_AUCTION_ID";
+export const ABOUT_TO_AUCTION_ID = "ABOUT_TO_AUCTION_ID";
+export const AUCTIONING_ID = "AUCTIONING_ID";
+export const AUCTIONED_ID = "AUCTIONED_ID";
+export const NOT_YET_AUCTION_MEMBER = "NOT_YET_AUCTION_MEMBER";
+export const ABOUT_TO_AUCTION_MEMBER = "ABOUT_TO_AUCTION_MEMBER";
+export const AUCTIONING_MEMBER = "AUCTIONING_MEMBER";
+export const AUCTIONED_MEMBER = "AUCTIONED_MEMBER";
 
 export const allAuction = (list) => {
   return {
@@ -31,7 +39,55 @@ export const Auctioning = (list) => {
 };
 export const Auctioned = (list) => {
   return {
-    type: AUCTIONED,
+    type: AUCTIONED_ID,
+    payload: list,
+  };
+};
+export const notYetAuctionId = (list) => {
+  return {
+    type: NOT_YET_AUCTION_ID,
+    payload: list,
+  };
+};
+export const aboutToAuctionId = (list) => {
+  return {
+    type: ABOUT_TO_AUCTION_ID,
+    payload: list,
+  };
+};
+export const AuctioningId = (list) => {
+  return {
+    type: AUCTIONING_ID,
+    payload: list,
+  };
+};
+export const AuctionedId = (list) => {
+  return {
+    type: AUCTIONED_ID,
+    payload: list,
+  };
+};
+export const notYetAuctionMember = (list) => {
+  return {
+    type: NOT_YET_AUCTION_MEMBER,
+    payload: list,
+  };
+};
+export const aboutToAuctionMember = (list) => {
+  return {
+    type: ABOUT_TO_AUCTION_MEMBER,
+    payload: list,
+  };
+};
+export const AuctioningMember = (list) => {
+  return {
+    type: AUCTIONING_MEMBER,
+    payload: list,
+  };
+};
+export const AuctionedMember = (list) => {
+  return {
+    type: AUCTIONED_MEMBER,
     payload: list,
   };
 };
@@ -146,5 +202,165 @@ export function actAuctionPostAsync(data, token) {
       console.error("Error occurred while posting auction:", error);
       // Xử lý lỗi ở đây, ví dụ hiển thị thông báo cho người dùng
     }
+  };
+}
+
+export function actNotYetAuctionGetIDAsync(id, token) {
+  return (dispatch) => {
+    AuctionServices.getAuctionNotYetAuctionedByUserID(id, token)
+      .then((response) => {
+        console.log("dataAuction", response);
+        if (response.status === 200 || response.status === 201) {
+          dispatch(notYetAuctionId(response.data));
+        } else {
+          // toast.error("get all syllabus to fail");
+          console.log("fail");
+        }
+      })
+      .catch((error) => {
+        // Xử lý lỗi nếu có
+        console.error("Error while fetching all auctions:", error);
+        // Nếu bạn muốn dispatch một action để xử lý lỗi, bạn có thể thực hiện ở đây
+      });
+  };
+}
+
+export function actAboutToAuctionGetIDAsync(id, token) {
+  return (dispatch) => {
+    AuctionServices.getAuctionAboutToAuctionByUserID(id, token)
+      .then((response) => {
+        console.log("dataAuction", response);
+        if (response.status === 200 || response.status === 201) {
+          dispatch(aboutToAuctionId(response.data));
+        } else {
+          // toast.error("get all syllabus to fail");
+          console.log("fail");
+        }
+      })
+      .catch((error) => {
+        // Xử lý lỗi nếu có
+        console.error("Error while fetching all auctions:", error);
+        // Nếu bạn muốn dispatch một action để xử lý lỗi, bạn có thể thực hiện ở đây
+      });
+  };
+}
+
+export function actAuctioningAuctionGetIDAsync(id, token) {
+  return (dispatch) => {
+    AuctionServices.getAuctioningByUserID(id, token)
+      .then((response) => {
+        console.log("dataAuction", response);
+        if (response.status === 200 || response.status === 201) {
+          dispatch(AuctioningId(response.data));
+        } else {
+          // toast.error("get all syllabus to fail");
+          console.log("fail");
+        }
+      })
+      .catch((error) => {
+        // Xử lý lỗi nếu có
+        console.error("Error while fetching all auctions:", error);
+        // Nếu bạn muốn dispatch một action để xử lý lỗi, bạn có thể thực hiện ở đây
+      });
+  };
+}
+
+export function actAuctionedAuctionGetIDAsync(id, token) {
+  return (dispatch) => {
+    AuctionServices.getAuctionedByUserID(id, token)
+      .then((response) => {
+        console.log("dataAuction", response);
+        if (response.status === 200 || response.status === 201) {
+          dispatch(AuctionedId(response.data));
+        } else {
+          // toast.error("get all syllabus to fail");
+          console.log("fail");
+        }
+      })
+      .catch((error) => {
+        // Xử lý lỗi nếu có
+        console.error("Error while fetching all auctions:", error);
+        // Nếu bạn muốn dispatch một action để xử lý lỗi, bạn có thể thực hiện ở đây
+      });
+  };
+}
+
+export function actNotYetAuctionGetMemberAsync(id, token) {
+  return (dispatch) => {
+    AuctionServices.getAuctionNotYetAuctionedByUserID(id, token)
+      .then((response) => {
+        console.log("dataAuction", response);
+        if (response.status === 200 || response.status === 201) {
+          dispatch(notYetAuctionId(response.data));
+        } else {
+          // toast.error("get all syllabus to fail");
+          console.log("fail");
+        }
+      })
+      .catch((error) => {
+        // Xử lý lỗi nếu có
+        console.error("Error while fetching all auctions:", error);
+        // Nếu bạn muốn dispatch một action để xử lý lỗi, bạn có thể thực hiện ở đây
+      });
+  };
+}
+
+export function actAboutToAuctionGetMemberAsync(id, token) {
+  return (dispatch) => {
+    AuctionServices.getAuctionAboutToAuctionByUserID(id, token)
+      .then((response) => {
+        console.log("dataAuction", response);
+        if (response.status === 200 || response.status === 201) {
+          dispatch(aboutToAuctionId(response.data));
+        } else {
+          // toast.error("get all syllabus to fail");
+          console.log("fail");
+        }
+      })
+      .catch((error) => {
+        // Xử lý lỗi nếu có
+        console.error("Error while fetching all auctions:", error);
+        // Nếu bạn muốn dispatch một action để xử lý lỗi, bạn có thể thực hiện ở đây
+      });
+  };
+}
+
+export function actAuctioningAuctionGetMemberAsync(id, token) {
+  return (dispatch) => {
+    AuctionServices.getAuctioningByUserID(id, token)
+      .then((response) => {
+        console.log("dataAuction", response);
+        if (response.status === 200 || response.status === 201) {
+          dispatch(AuctioningId(response.data));
+        } else {
+          // toast.error("get all syllabus to fail");
+          console.log("fail");
+        }
+      })
+      .catch((error) => {
+        // Xử lý lỗi nếu có
+        console.error("Error while fetching all auctions:", error);
+        // Nếu bạn muốn dispatch một action để xử lý lỗi, bạn có thể thực hiện ở đây
+      });
+  };
+}
+
+export function actAuctionedAuctionGetMemberAsync(id, token) {
+  return (dispatch) => {
+    AuctionServices.getAuctionedByUserID(id, token)
+      .then((response) => {
+        console.log("dataAuction", response);
+        if (response.status === 200 || response.status === 201) {
+          dispatch(AuctionedId(response.data));
+        } else {
+          // toast.error("get all syllabus to fail");
+          console.log("fail");
+        }
+      })
+      .catch((error) => {
+        // Xử lý lỗi nếu có
+        console.error("Error while fetching all auctions:", error);
+        // Nếu bạn muốn dispatch một action để xử lý lỗi, bạn có thể thực hiện ở đây
+      });
   };
 }

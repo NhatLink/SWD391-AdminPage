@@ -9,6 +9,7 @@ import {
   CButton,
   CBadge,
 } from "@coreui/react";
+import { Image } from "react-bootstrap";
 import PropTypes from "prop-types"; // Import PropTypes
 
 const TableAccount = (props) => {
@@ -19,9 +20,13 @@ const TableAccount = (props) => {
       <CTableHead color="light">
         <CTableRow>
           <CTableHeaderCell>ID</CTableHeaderCell>
-          <CTableHeaderCell>Name</CTableHeaderCell>
-          <CTableHeaderCell>Avatar</CTableHeaderCell>
-          <CTableHeaderCell>Registered</CTableHeaderCell>
+          <CTableHeaderCell>UserName</CTableHeaderCell>
+          <CTableHeaderCell>FullName</CTableHeaderCell>
+          <CTableHeaderCell>Email</CTableHeaderCell>
+          {/* <CTableHeaderCell>Gender</CTableHeaderCell> */}
+          {/* <CTableHeaderCell>Avatar</CTableHeaderCell> */}
+          {/* <CTableHeaderCell>Phone</CTableHeaderCell>
+          <CTableHeaderCell>Address</CTableHeaderCell> */}
           <CTableHeaderCell>Role</CTableHeaderCell>
           <CTableHeaderCell>Status</CTableHeaderCell>
           <CTableHeaderCell>Actions</CTableHeaderCell>
@@ -30,13 +35,24 @@ const TableAccount = (props) => {
       <CTableBody>
         {data.map((item, index) => (
           <CTableRow key={index}>
-            <CTableDataCell>{item.id}</CTableDataCell>
-            <CTableDataCell>{item.name}</CTableDataCell>
-            <CTableDataCell>{item.avatar}</CTableDataCell>
-            <CTableDataCell>{item.registered}</CTableDataCell>
-            <CTableDataCell>{item.role}</CTableDataCell>
+            <CTableDataCell>{index + 1}</CTableDataCell>
+            {/* <CTableDataCell style={{ minWidth: "auto", width: "auto" }}>
+              <Image
+                src={item.image}
+                alt="Orchid"
+                style={{ width: "10%", height: "auto" }}
+                roundedCircle
+              />
+            </CTableDataCell> */}
+            <CTableDataCell>{item.username}</CTableDataCell>
+            <CTableDataCell>{item.fullName}</CTableDataCell>
+            <CTableDataCell>{item.email}</CTableDataCell>
+            {/* <CTableDataCell>{item.gender}</CTableDataCell> */}
+            {/* <CTableDataCell>{item.phone}</CTableDataCell>
+            <CTableDataCell>{item.address}</CTableDataCell> */}
+            <CTableDataCell>{item.role_id.title}</CTableDataCell>
             <CTableDataCell>
-              {item.status === "Active" ? (
+              {item.status === true ? (
                 <CBadge color="success">Active</CBadge>
               ) : (
                 <CBadge color="danger">Banned</CBadge>

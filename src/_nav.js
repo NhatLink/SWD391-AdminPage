@@ -1,5 +1,13 @@
 import React from "react";
-import { cilCursor, cilDrop, cilPuzzle, cilSpeedometer } from "@coreui/icons";
+import {
+  cilSpeedometer,
+  cilUser,
+  cilMoney,
+  cilInbox,
+  cilWallet,
+  cilChartLine,
+  cilCast,
+} from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import { CNavGroup, CNavItem } from "@coreui/react";
 
@@ -22,7 +30,7 @@ const _nav = [
     component: CNavGroup,
     name: "Account",
     // to: "/account",
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -45,7 +53,7 @@ const _nav = [
     component: CNavGroup,
     name: "Aution",
     // to: "/aution",
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilCast} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -62,7 +70,7 @@ const _nav = [
     component: CNavGroup,
     name: "Product",
     // to: "/buttons",
-    icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilInbox} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
@@ -79,12 +87,25 @@ const _nav = [
     component: CNavGroup,
     name: "Transaction",
     // to: "/buttons",
-    icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
         name: "Transaction",
         to: "/transaction",
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: "Wallet",
+    // to: "/buttons",
+    icon: <CIcon icon={cilWallet} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: "Wallet History",
+        to: "/wallet_history",
       },
     ],
   },

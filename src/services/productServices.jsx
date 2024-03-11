@@ -11,11 +11,11 @@ export const ProductServices = {
   getAllProduct() {
     return API.get("/products");
   },
-  // fetchMe: (token) => {
-  //   return API.get("/users/fetchMe", {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-  // },
+  getAllProductByUserId(data, token) {
+    return API.get(`/products/${data}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };

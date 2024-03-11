@@ -22,6 +22,7 @@ const CustomTable = ({ data = [], onUpdate, onDelete }) => {
     const date = new Date(dateString);
     return format(date, "dd/MM/yyyy - HH:mm");
   };
+  console.log("Data in table auction: ", data);
   return (
     <CRow>
       <Col xs="auto">
