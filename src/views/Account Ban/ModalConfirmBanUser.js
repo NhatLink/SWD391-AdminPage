@@ -4,23 +4,17 @@ import Form from "react-bootstrap/Form";
 import { Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { actRequestConfirmAsync } from "../../store/wallet/action";
-import {
-  actRequestGetMoneyPaidAsync,
-  actRequestGetMoneyUnpaidAsync,
-} from "src/store/request/action";
+import { actConfirmBanUserPutAsync } from "../../store/user/action";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
-const ModalConfirmTransaction = (props) => {
+const ModalConfirmBanUser = (props) => {
   const { confirmData = [], showProp, handleClose } = props;
-  // const [moneyToAdd, setMoneyToAdd] = useState();
-  const [note, setNote] = useState("Cảm ơn quý khách");
   console.log("Confirm data: ", confirmData);
   const token = localStorage.getItem("ACCESS_TOKEN");
   const dispatch = useDispatch();
-  const confirm = useSelector((state) => state.WALLET.confirmDeposit);
-  console.log("confirm", confirm);
+  // const confirm = useSelector((state) => state.USER.allUser);
+  // console.log("confirm", confirm);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,23 +24,11 @@ const ModalConfirmTransaction = (props) => {
     // }
 
     let data = {
-      reportRequestId: confirmData._id,
-      // depositAmount: moneyToAdd,
-      note: note,
+      userId: confirmData.user_id._id,
     };
-
-    try {
-      // Giả sử dispatch sẽ trả về Promise
-      await dispatch(actRequestConfirmAsync(data, token));
-      await dispatch(actRequestGetMoneyPaidAsync(token));
-      await dispatch(actRequestGetMoneyUnpaidAsync(token));
-      toast.success(`Bạn đã ban tài khoản ${confirmData.user_id.fullName} `);
-      setNote("");
-      handleClose();
-    } catch (error) {
-      // Xử lý lỗi nếu có
-      toast.error("Có lỗi xảy ra, vui lòng thử lại!");
-    }
+    await dispatch(actConfirmBanUserPutAsync(data, token));
+    // toast.success(`Bạn đã ban tài khoản ${confirmData.user_id.fullName} `);
+    handleClose();
   };
 
   return (
@@ -62,15 +44,13 @@ const ModalConfirmTransaction = (props) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Confirm Transaction</Modal.Title>
+          <Modal.Title>Confirm Ban User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>
-            You want to confirm transaction to {confirmData?.user_id?.fullName}
-          </div>
-          <div>Money on request: {confirmData?.description}</div>
-          <Form className="mt-2">
-            {/* <Form.Group
+          <div>You want to ban user {confirmData?.user_id?.fullName}</div>
+          <div>Reason: {confirmData?.description}</div>
+          {/* <Form className="mt-2">
+            <Form.Group
               as={Row}
               className="justify-content-md-center mb-3"
               controlId="formHorizontalMoney"
@@ -86,7 +66,7 @@ const ModalConfirmTransaction = (props) => {
                   onChange={(e) => setMoneyToAdd(e.target.value)}
                 />
               </Col>
-            </Form.Group> */}
+            </Form.Group>
             <Form.Group
               as={Row}
               className="justify-content-md-center mb-3"
@@ -103,7 +83,7 @@ const ModalConfirmTransaction = (props) => {
                 />
               </Col>
             </Form.Group>
-          </Form>
+          </Form> */}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -119,7 +99,7 @@ const ModalConfirmTransaction = (props) => {
 };
 
 // Định nghĩa propTypes cho component
-ModalConfirmTransaction.propTypes = {
+ModalConfirmBanUser.propTypes = {
   // Xác định rằng `userDeleteData` là một đối tượng và là required
   confirmData: PropTypes.shape({
     id: PropTypes.number, // Giả sử id là một số và là required
@@ -135,4 +115,4 @@ ModalConfirmTransaction.propTypes = {
   handleClose: PropTypes.func.isRequired,
 };
 
-export default ModalConfirmTransaction;
+export default ModalConfirmBanUser;

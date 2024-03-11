@@ -21,7 +21,6 @@ function Aution() {
   const auctioningAuction = useSelector((state) => state.AUCTION.auctioning);
   const auctionedAuction = useSelector((state) => state.AUCTION.auctined);
 
-  console.log("Not yet:  ", notYetAuction);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(actNotYetAuctionGetAsync(token));

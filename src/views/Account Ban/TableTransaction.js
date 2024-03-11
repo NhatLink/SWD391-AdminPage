@@ -75,9 +75,9 @@ const TableTrannsacton = ({ data = [], onConfirm, onDelete }) => {
               )}
               <CTableDataCell>
                 {item.status === true ? (
-                  <CBadge color="warning">UnPaid</CBadge>
+                  <CBadge color="warning">Not banned yet</CBadge>
                 ) : (
-                  <CBadge color="success">Paid</CBadge>
+                  <CBadge color="success">banned</CBadge>
                 )}
               </CTableDataCell>
               {onConfirm && (

@@ -12,6 +12,7 @@ const AccountDetail = React.lazy(() => import("./views/Account/AccountDetail"));
 const AutionDetail = React.lazy(() => import("./views/Aution/AutionDetail"));
 const AutionConfirm = React.lazy(() => import("./views/Aution/AuctionConfirm"));
 const BanRequest = React.lazy(() => import("./views/Account Ban/BanRequest"));
+const WalletHistory = React.lazy(() => import("./views/Wallet/WalletHistory"));
 
 const routes = [
   { path: "/", exact: true, name: "Home", element: Home },
@@ -58,6 +59,12 @@ const routes = [
     path: "/profile",
     name: "Profile",
     element: Profile,
+    exact: true,
+  },
+  {
+    path: "/wallet_history",
+    name: "WalletHistory",
+    element: WalletHistory,
     exact: true,
   },
 ];

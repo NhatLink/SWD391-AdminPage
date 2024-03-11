@@ -43,4 +43,60 @@ export const AuctionServices = {
       },
     });
   },
+  getAuctionNotYetAuctionedByUserID(id, token) {
+    return API.get(`/auctions/not-yet/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  getAuctionAboutToAuctionByUserID(id, token) {
+    return API.get(`/auctions/about-to/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  getAuctioningByUserID(id, token) {
+    return API.get(`/auctions/auctioning/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  getAuctionedByUserID(id, token) {
+    return API.get(`/auctions/autioned/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  getMemberNotYetAuctionedByUserID(id, token) {
+    return API.get(`/auctions/memberAuctions-not-yet/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  getMemberAboutToAuctionByUserID(id, token) {
+    return API.get(`/auctions/memberAuctions-about-to/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  getMemberAuctioningByUserID(id, token) {
+    return API.get(`/auctions/memberAuctions-auctioning/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  getMemberAuctionedByUserID(id, token) {
+    return API.get(`/auctions/memberAuctions-autioned/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };
