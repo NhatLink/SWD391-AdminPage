@@ -1,4 +1,5 @@
 import { ReportWalletServices } from "../../services/walletRequest";
+import { actRequestGetMoneyPaidAsync, actRequestGetMoneyUnpaidAsync } from "../request/action";
 
 export const CONFIRM_DEPOSIT = "CONFIRM_DEPOSIT";
 
@@ -17,6 +18,8 @@ export function actRequestConfirmAsync(data, token) {
         console.log("dataRequest", response);
         if (response.status === 200 || response.status === 201) {
           dispatch(confirmDeposit(response.data));
+          dispatch(actRequestGetMoneyPaidAsync(token))
+          dispatch(actRequestGetMoneyUnpaidAsync(token))
         } else {
           // toast.error("get all syllabus to fail");
           console.log("fail");

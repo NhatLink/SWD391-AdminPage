@@ -43,6 +43,7 @@ export function actRequestGetMoneyUnpaidAsync(token) {
         console.log("dataRequest", response);
         if (response.status === 200 || response.status === 201) {
           dispatch(moneyUnpaidRequest(response.data));
+          // dispatch(actRequestGetMoneyPaidAsync(token));
         } else {
           // toast.error("get all syllabus to fail");
           console.log("fail");
