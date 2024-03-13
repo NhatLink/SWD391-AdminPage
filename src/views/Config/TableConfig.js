@@ -18,7 +18,7 @@ import { format } from "date-fns";
 // import { actAllUserGetAsync } from "src/store/user/action";
 // import { useDispatch, useSelector } from "react-redux";
 
-const TableWalletHistory = (props) => {
+const TableConfig = (props) => {
   const { data = [], onUpdate, onDelete } = props;
   // const [userEditData, setUserEditData] = useState();
   // const token = localStorage.getItem("ACCESS_TOKEN");
@@ -59,11 +59,10 @@ const TableWalletHistory = (props) => {
         <CTableHead color="light">
           <CTableRow>
             <CTableHeaderCell>ID</CTableHeaderCell>
-            <CTableHeaderCell>User</CTableHeaderCell>
             <CTableHeaderCell>Type</CTableHeaderCell>
             <CTableHeaderCell>Amount</CTableHeaderCell>
-            <CTableHeaderCell>Date</CTableHeaderCell>
-            {/* <CTableHeaderCell>Actions</CTableHeaderCell> */}
+            <CTableHeaderCell>Description</CTableHeaderCell>
+            <CTableHeaderCell>Actions</CTableHeaderCell>
           </CTableRow>
         </CTableHead>
         <CTableBody>
@@ -71,23 +70,16 @@ const TableWalletHistory = (props) => {
             <CTableRow key={index}>
               <CTableDataCell>{index + 1}</CTableDataCell>
               <CTableDataCell>
-                {item?.wallet_id?.user_id?.username}
-              </CTableDataCell>
-              <CTableDataCell>
-                {item?.type === "deposit" ? (
-                  <CBadge color="success">Deposit</CBadge>
+                {item?.type_config === "Join in auction" ? (
+                  <CBadge color="success">Join in auction</CBadge>
                 ) : (
-                  <CBadge color="danger">Withdraw</CBadge>
+                  <CBadge color="success">Register auction</CBadge>
                 )}
               </CTableDataCell>
-              {item?.type === "deposit" ? (
-                <CTableDataCell>+{item?.amount}</CTableDataCell>
-              ) : (
-                <CTableDataCell>-{item?.amount}</CTableDataCell>
-              )}
-
-              <CTableDataCell>{formatDate(item?.timestamp)}</CTableDataCell>
-              {/* <CTableDataCell>
+              <CTableDataCell>{item?.money}</CTableDataCell>
+              <CTableDataCell>{item?.description}</CTableDataCell>
+              {/* <CTableDataCell>{formatDate(item?.timestamp)}</CTableDataCell> */}
+              <CTableDataCell>
                 {onUpdate && (
                   <CButton color="success" onClick={() => onUpdate(item)}>
                     Detail
@@ -98,7 +90,7 @@ const TableWalletHistory = (props) => {
                     Delete
                   </CButton>
                 )}
-              </CTableDataCell> */}
+              </CTableDataCell>
             </CTableRow>
           ))}
         </CTableBody>
@@ -107,7 +99,7 @@ const TableWalletHistory = (props) => {
   );
 };
 
-TableWalletHistory.propTypes = {
+TableConfig.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -122,4 +114,4 @@ TableWalletHistory.propTypes = {
   onDelete: PropTypes.func,
 };
 
-export default TableWalletHistory;
+export default TableConfig;

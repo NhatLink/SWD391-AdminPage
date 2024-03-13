@@ -48,7 +48,7 @@ const TableTrannsacton = ({ data = [], onConfirm, onDelete }) => {
           <CTableRow>
             <CTableHeaderCell>ID</CTableHeaderCell>
             <CTableHeaderCell>Name</CTableHeaderCell>
-            <CTableHeaderCell>Money</CTableHeaderCell>
+            <CTableHeaderCell>Reason Ban</CTableHeaderCell>
             <CTableHeaderCell>Date Send</CTableHeaderCell>
             {showPaid && <CTableHeaderCell>Date Confirm</CTableHeaderCell>}
             {showPaid && <CTableHeaderCell>Note</CTableHeaderCell>}
@@ -60,7 +60,7 @@ const TableTrannsacton = ({ data = [], onConfirm, onDelete }) => {
           {data?.map((item, index) => (
             <CTableRow key={index}>
               <CTableDataCell>{index + 1}</CTableDataCell>
-              <CTableDataCell>{item?.user_id?.fullName}</CTableDataCell>
+              <CTableDataCell>{item?.user_id?.username}</CTableDataCell>
               <CTableDataCell>{item.description}</CTableDataCell>
               <CTableDataCell>
                 {formatDate(item?.create_timestamp)}

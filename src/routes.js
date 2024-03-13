@@ -1,4 +1,6 @@
 import React from "react";
+import Config from "./views/Config/Config";
+import DetailConfig from "./views/Config/DetailConfig";
 const Profile = React.lazy(() => import("./views/Profile/Profile"));
 const Account = React.lazy(() => import("./views/Account/Account"));
 const Aution = React.lazy(() => import("./views/Aution/Aution"));
@@ -65,6 +67,18 @@ const routes = [
     path: "/wallet_history",
     name: "WalletHistory",
     element: WalletHistory,
+    exact: true,
+  },
+  {
+    path: "/config",
+    name: "Config",
+    element: Config,
+    exact: true,
+  },
+  {
+    path: "/config/:configId",
+    name: "ConfigDetail",
+    element: DetailConfig,
     exact: true,
   },
 ];

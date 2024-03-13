@@ -31,15 +31,16 @@ export const allUser = (list) => {
   };
 };
 
-export function actConfirmBanUserPutAsync(data, token) {
+export function actConfirmBanUserPutAsync(id, data, token) {
   return async (dispatch) => {
     try {
-      const response = await UserServices.banUser(data, token);
+      const response = await UserServices.banUser(id, data, token);
       if (response.status === 200 || response.status === 201) {
         // toast.success(`Bạn đã ban tài khoản thành công`);
         dispatch(actAlreadyBanRequestGetAsync(token));
         dispatch(actBanRequestGetAsync(token));
         dispatch(actAllUserGetAsync(token));
+        toast.success("Bạn đã ban tài khoản thành công");
       } else {
         // toast.error("Post Product to fail");
         console.log("fail");

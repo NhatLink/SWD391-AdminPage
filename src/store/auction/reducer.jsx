@@ -19,15 +19,15 @@ const initialState = {
   notYetAuction: [],
   aboutToAuction: [],
   auctioning: [],
-  auctined: [],
+  auctioned: [],
   notYetAuctionId: [],
   aboutToAuctionId: [],
   auctioningId: [],
-  auctinedId: [],
+  auctionedId: [],
   notYetAuctionMember: [],
   aboutToAuctionMember: [],
   auctioningMember: [],
-  auctinedMember: [],
+  auctionedMember: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -55,7 +55,7 @@ const reducer = (state = initialState, action) => {
     case AUCTIONED:
       return {
         ...state,
-        auctined: action.payload,
+        auctioned: action.payload,
       };
     case NOT_YET_AUCTION_ID:
       return {
@@ -75,7 +75,7 @@ const reducer = (state = initialState, action) => {
     case AUCTIONED_ID:
       return {
         ...state,
-        auctinedId: action.payload,
+        auctionedId: action.payload,
       };
     case NOT_YET_AUCTION_MEMBER:
       return {
@@ -95,7 +95,7 @@ const reducer = (state = initialState, action) => {
     case AUCTIONED_MEMBER:
       return {
         ...state,
-        auctinedMember: action.payload,
+        auctionedMember: action.payload,
       };
 
     default:
