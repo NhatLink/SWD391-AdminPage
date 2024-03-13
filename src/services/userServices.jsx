@@ -11,8 +11,8 @@ export const UserServices = {
       },
     });
   },
-  banUser(data, token) {
-    return API.post("/users/ban-user", data, {
+  banUser(id, data, token) {
+    return API.put(`/users/ban-user/${id}`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

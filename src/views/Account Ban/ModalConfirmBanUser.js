@@ -17,17 +17,14 @@ const ModalConfirmBanUser = (props) => {
   // console.log("confirm", confirm);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(
+      actConfirmBanUserPutAsync(
+        confirmData?.user_id?._id,
+        { note: "Bạn đã bị ban" },
+        token
+      )
+    );
 
-    // if (!moneyToAdd) {
-    //   toast.error("Vui lòng điền số để ");
-    //   return;
-    // }
-
-    let data = {
-      userId: confirmData.user_id._id,
-    };
-    await dispatch(actConfirmBanUserPutAsync(data, token));
-    // toast.success(`Bạn đã ban tài khoản ${confirmData.user_id.fullName} `);
     handleClose();
   };
 

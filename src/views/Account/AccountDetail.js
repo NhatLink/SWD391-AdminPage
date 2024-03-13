@@ -43,7 +43,7 @@ const DetailUser = () => {
   const notYetAuction = useSelector((state) => state.AUCTION.notYetAuctionId);
   const aboutToAuction = useSelector((state) => state.AUCTION.aboutToAuctionId);
   const auctioningAuction = useSelector((state) => state.AUCTION.auctioningId);
-  const auctionedAuction = useSelector((state) => state.AUCTION.auctinedId);
+  const auctionedAuction = useSelector((state) => state.AUCTION.auctionedId);
   const notYetAuctionMember = useSelector(
     (state) => state.AUCTION.notYetAuctionMember
   );
@@ -54,7 +54,7 @@ const DetailUser = () => {
     (state) => state.AUCTION.auctioningMember
   );
   const auctionedAuctionMember = useSelector(
-    (state) => state.AUCTION.auctinedMember
+    (state) => state.AUCTION.auctionedMember
   );
   const dispatch = useDispatch();
   useEffect(() => {
@@ -197,63 +197,6 @@ const DetailUser = () => {
                   <div>
                     {
                       <TableAution
-                        data={notYetAuctionMember}
-                        onUpdate={handleDetailAuction}
-                      />
-                    }
-                  </div>
-                }
-                sapDienRaContent={
-                  <div>
-                    {
-                      <TableAution
-                        data={aboutToAuctionMember}
-                        onUpdate={handleDetailAuction}
-                      />
-                    }
-                  </div>
-                }
-                dangDienRaContent={
-                  <div>
-                    {
-                      <TableAution
-                        data={auctioningAuctionMember}
-                        onUpdate={handleDetailAuction}
-                      />
-                    }
-                  </div>
-                }
-                daDienRaContent={
-                  <div>
-                    {
-                      <TableAution
-                        data={auctionedAuctionMember}
-                        onUpdate={handleDetailAuction}
-                      />
-                    }
-                  </div>
-                }
-              />
-            </CCardBody>
-          </CCard>
-        </CCol>
-      )}
-
-      {userEditData?.role_id?.title === "MEMBER" && (
-        <CCol xs={12}>
-          <CCard className="mb-4">
-            <CCardHeader>
-              <strong>Aution Member</strong>
-            </CCardHeader>
-            <CCardBody>
-              <p className="text-medium-emphasis small">
-                Hiện thị các đấu giá mà user đã đăng kí
-              </p>
-              <ChangeTabAution
-                chuaDienRaContent={
-                  <div>
-                    {
-                      <TableAution
                         data={notYetAuction}
                         onUpdate={handleDetailAuction}
                       />
@@ -285,6 +228,63 @@ const DetailUser = () => {
                     {
                       <TableAution
                         data={auctionedAuction}
+                        onUpdate={handleDetailAuction}
+                      />
+                    }
+                  </div>
+                }
+              />
+            </CCardBody>
+          </CCard>
+        </CCol>
+      )}
+
+      {userEditData?.role_id?.title === "MEMBER" && (
+        <CCol xs={12}>
+          <CCard className="mb-4">
+            <CCardHeader>
+              <strong>Aution Member</strong>
+            </CCardHeader>
+            <CCardBody>
+              <p className="text-medium-emphasis small">
+                Hiện thị các đấu giá mà user đã đăng kí
+              </p>
+              <ChangeTabAution
+                chuaDienRaContent={
+                  <div>
+                    {
+                      <TableAution
+                        data={notYetAuctionMember}
+                        onUpdate={handleDetailAuction}
+                      />
+                    }
+                  </div>
+                }
+                sapDienRaContent={
+                  <div>
+                    {
+                      <TableAution
+                        data={aboutToAuctionMember}
+                        onUpdate={handleDetailAuction}
+                      />
+                    }
+                  </div>
+                }
+                dangDienRaContent={
+                  <div>
+                    {
+                      <TableAution
+                        data={auctioningAuctionMember}
+                        onUpdate={handleDetailAuction}
+                      />
+                    }
+                  </div>
+                }
+                daDienRaContent={
+                  <div>
+                    {
+                      <TableAution
+                        data={auctionedAuctionMember}
                         onUpdate={handleDetailAuction}
                       />
                     }

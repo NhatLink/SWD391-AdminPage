@@ -5,6 +5,7 @@ import productReducer from "./product/reducer";
 import auctionReducer from "./auction/reducer";
 import requestReducer from "./request/reducer";
 import walletReducer from "./wallet/reducer";
+import configReducer from "./config/reducer";
 import sidebarReducer from "./sidebarReducer";
 const rootReducer = combineReducers({
   USER: userReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   AUCTION: auctionReducer,
   REQUEST: requestReducer,
   WALLET: walletReducer,
+  CONFIG: configReducer,
   sidebar: sidebarReducer,
 });
 

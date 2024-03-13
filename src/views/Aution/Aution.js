@@ -19,7 +19,7 @@ function Aution() {
   const notYetAuction = useSelector((state) => state.AUCTION.notYetAuction);
   const aboutToAuction = useSelector((state) => state.AUCTION.aboutToAuction);
   const auctioningAuction = useSelector((state) => state.AUCTION.auctioning);
-  const auctionedAuction = useSelector((state) => state.AUCTION.auctined);
+  const auctionedAuction = useSelector((state) => state.AUCTION.auctioned);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -33,7 +33,7 @@ function Aution() {
   //   setDeleteData(aution);
   //   setShowDelete(true);
   // };
-
+  console.log("All Auctioned auction: ", auctionedAuction);
   const navigate = useNavigate();
   const handleUpdateUser = (aution) => {
     // Chuyển hướng đến trang UpdateUser và truyền dữ liệu userEditData

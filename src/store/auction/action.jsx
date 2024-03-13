@@ -39,7 +39,7 @@ export const Auctioning = (list) => {
 };
 export const Auctioned = (list) => {
   return {
-    type: AUCTIONED_ID,
+    type: AUCTIONED,
     payload: list,
   };
 };
@@ -287,11 +287,11 @@ export function actAuctionedAuctionGetIDAsync(id, token) {
 
 export function actNotYetAuctionGetMemberAsync(id, token) {
   return (dispatch) => {
-    AuctionServices.getAuctionNotYetAuctionedByUserID(id, token)
+    AuctionServices.getMemberNotYetAuctionedByUserID(id, token)
       .then((response) => {
         console.log("dataAuction", response);
         if (response.status === 200 || response.status === 201) {
-          dispatch(notYetAuctionId(response.data));
+          dispatch(notYetAuctionMember(response.data));
         } else {
           // toast.error("get all syllabus to fail");
           console.log("fail");
@@ -307,11 +307,11 @@ export function actNotYetAuctionGetMemberAsync(id, token) {
 
 export function actAboutToAuctionGetMemberAsync(id, token) {
   return (dispatch) => {
-    AuctionServices.getAuctionAboutToAuctionByUserID(id, token)
+    AuctionServices.getMemberAboutToAuctionByUserID(id, token)
       .then((response) => {
         console.log("dataAuction", response);
         if (response.status === 200 || response.status === 201) {
-          dispatch(aboutToAuctionId(response.data));
+          dispatch(aboutToAuctionMember(response.data));
         } else {
           // toast.error("get all syllabus to fail");
           console.log("fail");
@@ -327,11 +327,11 @@ export function actAboutToAuctionGetMemberAsync(id, token) {
 
 export function actAuctioningAuctionGetMemberAsync(id, token) {
   return (dispatch) => {
-    AuctionServices.getAuctioningByUserID(id, token)
+    AuctionServices.getMemberAuctioningByUserID(id, token)
       .then((response) => {
         console.log("dataAuction", response);
         if (response.status === 200 || response.status === 201) {
-          dispatch(AuctioningId(response.data));
+          dispatch(AuctioningMember(response.data));
         } else {
           // toast.error("get all syllabus to fail");
           console.log("fail");
@@ -347,11 +347,11 @@ export function actAuctioningAuctionGetMemberAsync(id, token) {
 
 export function actAuctionedAuctionGetMemberAsync(id, token) {
   return (dispatch) => {
-    AuctionServices.getAuctionedByUserID(id, token)
+    AuctionServices.getMemberAuctionedByUserID(id, token)
       .then((response) => {
         console.log("dataAuction", response);
         if (response.status === 200 || response.status === 201) {
-          dispatch(AuctionedId(response.data));
+          dispatch(AuctionedMember(response.data));
         } else {
           // toast.error("get all syllabus to fail");
           console.log("fail");

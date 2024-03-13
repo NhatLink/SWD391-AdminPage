@@ -109,6 +109,19 @@ const _nav = [
       },
     ],
   },
+  {
+    component: CNavGroup,
+    name: "Config",
+    // to: "/buttons",
+    icon: <CIcon icon={cilWallet} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: "Config",
+        to: "/config",
+      },
+    ],
+  },
 ];
 
 export default _nav;
