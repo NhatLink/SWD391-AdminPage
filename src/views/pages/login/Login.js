@@ -43,6 +43,10 @@ const Login = () => {
     UserServices.loginUser(formData)
       .then((resFetchMe) => {
         console.log("resFetchMe", resFetchMe);
+        if (resFetchMe?.data?.user?.role_id?.title !== "ADMIN") {
+          toast.error("Just Admin login to Website")
+          return;
+        }
         const token = resFetchMe.data.token;
         const currentUser = resFetchMe.data.user;
         const role = resFetchMe.data.user.title;
@@ -50,7 +54,7 @@ const Login = () => {
           .then((res) => {
             dispatch(actUserLogin(currentUser, token, role));
             toast.success(
-              `Bạn đã đăng nhập với role ${role}. Chào mừng đã vào cổng`
+              `Bạn đã đăng nhập với role ${resFetchMe?.data?.user?.role_id?.title}. Chào mừng đã vào cổng`
             );
             navigate("/");
           })
