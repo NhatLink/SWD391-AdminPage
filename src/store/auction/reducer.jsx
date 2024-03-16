@@ -12,6 +12,11 @@ import {
   ABOUT_TO_AUCTION_MEMBER,
   AUCTIONING_MEMBER,
   AUCTIONED_MEMBER,
+  ALL_AUCTION_COUNT,
+  ABOUT_TO_AUCTION_COUNT,
+  AUCTIONING_COUNT,
+  AUCTIONED_COUNT,
+  NOT_YET_AUCTION_COUNT,
 } from "./action";
 
 const initialState = {
@@ -20,6 +25,11 @@ const initialState = {
   aboutToAuction: [],
   auctioning: [],
   auctioned: [],
+  auctionsCount: null,
+  notYetAuctionCount: null,
+  aboutToAuctionCount: null,
+  auctioningCount: null,
+  auctionedCount: null,
   notYetAuctionId: [],
   aboutToAuctionId: [],
   auctioningId: [],
@@ -56,6 +66,31 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         auctioned: action.payload,
+      };
+    case ALL_AUCTION_COUNT:
+      return {
+        ...state,
+        auctionsCount: action.payload,
+      };
+    case NOT_YET_AUCTION_COUNT:
+      return {
+        ...state,
+        notYetAuctionCount: action.payload,
+      };
+    case ABOUT_TO_AUCTION_COUNT:
+      return {
+        ...state,
+        aboutToAuctionCount: action.payload,
+      };
+    case AUCTIONING_COUNT:
+      return {
+        ...state,
+        auctioningCount: action.payload,
+      };
+    case AUCTIONED_COUNT:
+      return {
+        ...state,
+        auctionedCount: action.payload,
       };
     case NOT_YET_AUCTION_ID:
       return {

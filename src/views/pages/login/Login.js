@@ -49,9 +49,7 @@ const Login = () => {
         UserServices.fetchMe(token)
           .then((res) => {
             dispatch(actUserLogin(currentUser, token, role));
-            toast.success(
-              `Bạn đã đăng nhập với role ${role}. Chào mừng đã vào cổng`
-            );
+            toast.success(`Chào mừng đã vào cổng`);
             navigate("/");
           })
           .catch((err) => alert("Login or password failed"));

@@ -18,4 +18,13 @@ export const ProductServices = {
       },
     });
   },
+  getAllProductsCount() {
+    return API.get("/products/ProductCount");
+  },
+  getAllUnAuctionedProductsCount() {
+    return API.get("/products/UnAuctionedProductCount");
+  },
+  getAllAuctionedProductsCount() {
+    return API.get("/products/AuctionedProductCount");
+  },
 };

@@ -32,4 +32,26 @@ export const UserServices = {
   //     },
   //   });
   // },
+
+  getAllMemberCount(token) {
+    return API.get("/users/MemberCount", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  getAllHostCount(token) {
+    return API.get("/users/HostCount", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  getAgvMemberAuctiont(token) {
+    return API.get("/users/AgvMemberAuction", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };

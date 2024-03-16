@@ -9,6 +9,9 @@ import {
   // GET_ALL_USER,
   // GET_ALL_USER_FAKE,
   // UPDATE_USER,
+  ALL_HOST_COUNT,
+  ALL_MEMBER_COUNT,
+  AVG_MEMBER_AUCTION,
 } from "./action";
 
 const initialState = {
@@ -17,6 +20,9 @@ const initialState = {
   token: null,
   currentUser: null,
   allUser: [],
+  allMember: null,
+  allHost: null,
+  AvgMemberAuction: null,
   // role: null,
   // trainer: [],
   // admin: [],
@@ -76,6 +82,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         allUser: action.payload,
+      };
+    case ALL_MEMBER_COUNT:
+      return {
+        ...state,
+        allMember: action.payload,
+      };
+    case ALL_HOST_COUNT:
+      return {
+        ...state,
+        allHost: action.payload,
+      };
+    case AVG_MEMBER_AUCTION:
+      return {
+        ...state,
+        AvgMemberAuction: action.payload,
       };
     // case GET_ALL_USER_FAKE:
     //   return {

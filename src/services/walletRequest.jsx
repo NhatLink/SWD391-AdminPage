@@ -15,4 +15,18 @@ export const ReportWalletServices = {
       },
     });
   },
+  getDepositCount(token) {
+    return API.get("/wallets/DepositCount", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  getWithdrawCount(token) {
+    return API.get("/wallets/WithdrawCount", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };

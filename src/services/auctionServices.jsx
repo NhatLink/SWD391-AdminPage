@@ -99,4 +99,19 @@ export const AuctionServices = {
       },
     });
   },
+  getAllAuctionCount() {
+    return API.get("/auctions/AuctionCount");
+  },
+  getAllAboutToAuctionCount() {
+    return API.get("/auctions/AboutToAuctionCount");
+  },
+  getAllAuctioningAuctionCount() {
+    return API.get("/auctions/AuctioningAuctionCount");
+  },
+  getAllNotYetAuctionCount() {
+    return API.get("/auctions/NotYetAuctionCount");
+  },
+  getAllAuctionedAuctionCount() {
+    return API.get("/auctions/AuctionedAuctionCount");
+  },
 };

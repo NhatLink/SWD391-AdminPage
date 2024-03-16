@@ -39,8 +39,8 @@ const ModalConfirmTransaction = (props) => {
     // try {
     // Giả sử dispatch sẽ trả về Promise
     dispatch(actRequestConfirmAsync(data, token));
-    // dispatch(actRequestGetMoneyPaidAsync(token));
-    // dispatch(actRequestGetMoneyUnpaidAsync(token));
+    dispatch(actRequestGetMoneyPaidAsync(token));
+    dispatch(actRequestGetMoneyUnpaidAsync(token));
     toast.success(
       `Bạn đã add ${moneyToAdd} vào tài khoản ${confirmData.user_id.fullName} `
     );
