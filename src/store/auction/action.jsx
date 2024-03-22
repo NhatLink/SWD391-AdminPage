@@ -17,7 +17,8 @@ export const NOT_YET_AUCTION_COUNT = "NOT_YET_AUCTION_COUNT";
 export const ABOUT_TO_AUCTION_COUNT = "ABOUT_TO_AUCTION_COUNT";
 export const AUCTIONING_COUNT = "AUCTIONING_COUNT";
 export const AUCTIONED_COUNT = "AUCTIONED_COUNT";
-
+export const GET_AUCTION_MEMBER_JOIN_AUCTION_ROOM =
+  "GET_AUCTION_MEMBER_JOIN_AUCTION_ROOM";
 export const allAuction = (list) => {
   return {
     type: ALL_AUCTION,
@@ -123,6 +124,12 @@ export const AuctioningCount = (list) => {
 export const AuctionedCount = (list) => {
   return {
     type: AUCTIONED_COUNT,
+    payload: list,
+  };
+};
+export const getAllMemberInJoinAuctionRoom = (list) => {
+  return {
+    type: GET_AUCTION_MEMBER_JOIN_AUCTION_ROOM,
     payload: list,
   };
 };
@@ -486,6 +493,24 @@ export function actAuctionedAuctionGetMemberAsync(id, token) {
         } else {
           // toast.error("get all syllabus to fail");
           console.log("fail");
+        }
+      })
+      .catch((error) => {
+        // Xử lý lỗi nếu có
+        console.error("Error while fetching all auctions:", error);
+        // Nếu bạn muốn dispatch một action để xử lý lỗi, bạn có thể thực hiện ở đây
+      });
+  };
+}
+
+export function actGetAllMemberJoinAuctionRoomGetAsync(data, token) {
+  return (dispatch) => {
+    AuctionServices.getAllMemberInJoinAuctionBid(data, token)
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) {
+          dispatch(getAllMemberInJoinAuctionRoom(response.data));
+        } else {
+          // toast.error("get all syllabus to fail");
         }
       })
       .catch((error) => {

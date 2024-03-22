@@ -3,6 +3,7 @@ import {
   ALL_WALLET_HISTORY,
   DEPOSIT_COUNT,
   WITHDRAW_COUNT,
+  WALLET_HISTORY_ID,
 } from "./action";
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   allWalletHistory: [],
   depositCount: null,
   withdrawCount: null,
+  walletHistory: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -37,6 +39,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         withdrawCount: action.payload,
+      };
+    case WALLET_HISTORY_ID:
+      return {
+        ...state,
+        walletHistory: action.payload,
       };
     default:
       return state;

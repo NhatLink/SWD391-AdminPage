@@ -256,7 +256,7 @@ function Home() {
           </h5>
         </div>
 
-        <div>
+        {/* <div>
           <h2>Biểu đồ đấu giá</h2>
           <Line data={auctionData} options={{ responsive: true }} />
         </div>
@@ -269,7 +269,6 @@ function Home() {
             />
           </div>
         </div>
-        {/* Có thể thêm các component/section khác tùy theo nhu cầu */}
         <div>
           <h2>Sản phẩm được tạo trong ngày</h2>
           <Bar data={productsCreatedTodayData} options={{ responsive: true }} />
@@ -280,7 +279,7 @@ function Home() {
             data={auctionsCreatedTodayData}
             options={{ responsive: true }}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

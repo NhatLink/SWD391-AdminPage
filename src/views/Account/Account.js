@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 function Account() {
   const navigate = useNavigate();
   const [showDelete, setShowDelete] = useState(false);
-  const [userDeleteData, setUserDeleteData] = useState({});
+  const [userDeleteData] = useState({});
   const token = localStorage.getItem("ACCESS_TOKEN");
   const allUser = useSelector((state) => state.USER.allUser);
   const dispatch = useDispatch();
@@ -20,11 +20,6 @@ function Account() {
   const handleUpdate = (user) => {
     navigate(`/update-user/${user._id}`);
     // Thêm logic update tại đây
-  };
-
-  const handleDelete = (user) => {
-    setUserDeleteData(user);
-    setShowDelete(true);
   };
   return (
     <CRow>
@@ -53,11 +48,7 @@ function Account() {
               {/* </CCardBody> */}
             </p>
 
-            <TableAccount
-              data={allUser}
-              onUpdate={handleUpdate}
-              onDelete={handleDelete}
-            />
+            <TableAccount data={allUser} onUpdate={handleUpdate} />
           </CCardBody>
         </CCard>
       </CCol>

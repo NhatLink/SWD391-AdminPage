@@ -4,6 +4,7 @@ import {
   MONEY_UNPAID_REQUEST,
   ALREADY_BAN_REQUEST,
   BAN_REQUEST,
+  ALL_REQUEST_ID,
 } from "./action";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   requestUnpaid: [],
   banRequest: [],
   alreadyBanRequest: [],
+  allRequestId: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,6 +23,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         request: action.payload,
+      };
+    case ALL_REQUEST_ID:
+      return {
+        ...state,
+        allRequestId: action.payload,
       };
     case MONEY_PAID_REQUEST:
       // localStorage.setItem("ACCESS_TOKEN", action.payload.token);

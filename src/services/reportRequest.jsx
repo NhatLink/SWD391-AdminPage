@@ -29,4 +29,11 @@ export const ReportRequestServices = {
       },
     });
   },
+  getAllRequestByUserId(id, token) {
+    return API.get(`/report_requests/getRequest/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };

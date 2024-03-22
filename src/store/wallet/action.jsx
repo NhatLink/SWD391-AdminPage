@@ -8,6 +8,7 @@ export const CONFIRM_DEPOSIT = "CONFIRM_DEPOSIT";
 export const ALL_WALLET_HISTORY = "ALL_WALLET_HISTORY";
 export const DEPOSIT_COUNT = "DEPOSIT_COUNT";
 export const WITHDRAW_COUNT = "WITHDRAW_COUNT";
+export const WALLET_HISTORY_ID = "WALLET_HISTORY_ID";
 
 export const confirmDeposit = (list) => {
   return {
@@ -36,7 +37,12 @@ export const WithdrawCount = (list) => {
     payload: list,
   };
 };
-
+export const getWalletHistoryById = (list) => {
+  return {
+    type: WALLET_HISTORY_ID,
+    payload: list,
+  };
+};
 export function actRequestConfirmAsync(data, token) {
   return (dispatch) => {
     console.log("request");
@@ -115,6 +121,24 @@ export function actWithdrawCountGetAsync(token) {
       .catch((error) => {
         // Xử lý lỗi nếu có
         console.error("Error while fetching all wallet history:", error);
+        // Nếu bạn muốn dispatch một action để xử lý lỗi, bạn có thể thực hiện ở đây
+      });
+  };
+}
+
+export function actGetWalletHistoryByUserAsync(data, token) {
+  return (dispatch) => {
+    ReportWalletServices.getWalletHistory(data, token)
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) {
+          dispatch(getWalletHistoryById(response.data));
+        } else {
+          // toast.error("get all syllabus to fail");
+        }
+      })
+      .catch((error) => {
+        // Xử lý lỗi nếu có
+        console.error("Error while fetching all products:", error);
         // Nếu bạn muốn dispatch một action để xử lý lỗi, bạn có thể thực hiện ở đây
       });
   };

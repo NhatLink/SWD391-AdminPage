@@ -24,7 +24,7 @@ const ProductDetail = () => {
       <Col xs={12}>
         <Card className="mb-4">
           <Card.Header>
-            <strong>Thông Tin Chi Tiết Product với ID {productId} </strong>
+            <strong>Thông tin chi tiết sản phẩm </strong>
           </Card.Header>
           <Card.Body>
             <Form>
@@ -56,9 +56,29 @@ const ProductDetail = () => {
                   <Card>
                     <Card.Body>
                       <Card.Title>Video Sản Phẩm</Card.Title>
-                      <div style={{ position: "relative", marginTop: "20px" }}>
+                      {/* <div style={{ position: "relative", marginTop: "20px" }}>
                         <video controls style={{ maxWidth: "100%" }}>
                           <source src={product?.video} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div> */}
+                      <div
+                        style={{
+                          position: "relative",
+                          marginTop: "20px",
+                        }}
+                      >
+                        {/* <video controls style={{ maxWidth: "100%" }}>
+                          <source
+                            src={auction?.product_id?.video}
+                            type="video/mp4"
+                          />
+                          Your browser does not support the video tag.
+                        </video> */}
+                        <video controls style={{ maxWidth: "100%" }}>
+                          {product?.video?.map((video, index) => (
+                            <source key={index} src={video} type="video/mp4" />
+                          ))}
                           Your browser does not support the video tag.
                         </video>
                       </div>

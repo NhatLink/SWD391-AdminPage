@@ -33,6 +33,14 @@ const TableWalletHistory = (props) => {
   //   );
   //   setUserEditData(item);
   // }, [allUser, data?.wallet_id?.user_id]);
+  function formatCurrencyVND(amount) {
+    // Sử dụng hàm toLocaleString() để định dạng số
+    // Cài đặt style là 'currency' và currency là 'VND'
+    return amount?.toLocaleString("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+  }
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const date = new Date(dateString);
@@ -80,12 +88,19 @@ const TableWalletHistory = (props) => {
                   <CBadge color="danger">Withdraw</CBadge>
                 )}
               </CTableDataCell>
-              {item?.type === "deposit" ? (
+              {/* {item?.type === "deposit" ? (
                 <CTableDataCell>+{item?.amount}</CTableDataCell>
               ) : (
                 <CTableDataCell>-{item?.amount}</CTableDataCell>
-              )}
-
+              )} */}
+              <CTableDataCell
+                style={{
+                  color: `${item?.type === "deposit" ? "green" : "red"}`,
+                }}
+              >
+                {item?.type === "deposit" ? "+" : "-"}
+                {formatCurrencyVND(item?.amount)}
+              </CTableDataCell>
               <CTableDataCell>{formatDate(item?.timestamp)}</CTableDataCell>
               {/* <CTableDataCell>
                 {onUpdate && (

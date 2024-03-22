@@ -11,6 +11,7 @@ import {
 } from "src/store/request/action";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import CurrencyFormat from "react-currency-format";
 
 const ModalConfirmTransaction = (props) => {
   const { confirmData = [], showProp, handleClose } = props;
@@ -84,10 +85,18 @@ const ModalConfirmTransaction = (props) => {
               </Col>
               <Col xs={12} md={8}>
                 <Form.Control
-                  type="number"
+                  as={CurrencyFormat}
+                  thousandSeparator={true}
+                  decimalSeparator="."
+                  allowNegative={false}
                   autoFocus
                   value={moneyToAdd}
-                  onChange={(e) => setMoneyToAdd(e.target.value)}
+                  // onChange={(e) => setMoneyToAdd(e.target.value)}
+                  onValueChange={(values) => {
+                    const { value } = values;
+                    setMoneyToAdd(value);
+                  }}
+                  suffix=" đ"
                 />
               </Col>
             </Form.Group>
