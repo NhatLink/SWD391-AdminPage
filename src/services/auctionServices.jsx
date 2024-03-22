@@ -114,4 +114,11 @@ export const AuctionServices = {
   getAllAuctionedAuctionCount() {
     return API.get("/auctions/AuctionedAuctionCount");
   },
+  getAllMemberInJoinAuctionBid(data, token) {
+    return API.get(`/auctions/getAllMemberInAuctionBid/${data}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };

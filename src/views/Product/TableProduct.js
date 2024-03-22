@@ -51,7 +51,7 @@ const TableProduct = (props) => {
               <CTableDataCell>{item?.name}</CTableDataCell>
               <CTableDataCell>{item?.host_id?.fullName}</CTableDataCell>
               <CTableDataCell>
-                {item?.status === true ? (
+                {item?.status === false ? (
                   <CBadge color="danger">Not Auction</CBadge>
                 ) : (
                   <CBadge color="success"> Auction</CBadge>

@@ -10,23 +10,41 @@ import {
 } from "@coreui/react";
 import { Card, Row, Col, Button, Form, Carousel } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { actAuctionGetAsync } from "../../store/auction/action";
+import {
+  actAuctionGetAsync,
+  actGetAllMemberJoinAuctionRoomGetAsync,
+} from "../../store/auction/action";
 const AutionDetail = () => {
   const { auctionId } = useParams(); // Lấy ID từ URL
   const navigate = useNavigate();
   const auctions = useSelector((state) => state.AUCTION.auctions);
   console.log("aucctionsss", auctions);
+  const allMemberJoinInAuction = useSelector(
+    (state) => state.AUCTION.allMemberJoinInAuction
+  );
+  const filterNumberMemberJoinRoom = allMemberJoinInAuction?.filter(
+    (e) => e?.member_id?.role_id?.title !== "HOST"
+  );
   const token = localStorage.getItem("ACCESS_TOKEN");
   const dispatch = useDispatch();
   const [auction, setAuction] = useState("");
   useEffect(() => {
     dispatch(actAuctionGetAsync(token));
+    dispatch(actGetAllMemberJoinAuctionRoomGetAsync(auctionId, token));
   }, [auctionId, dispatch, token]);
   useEffect(() => {
     const item = auctions.find((i) => i._id === auctionId);
     setAuction(item);
   }, [auctions, auctionId]);
   console.log("auctionDetail", auction);
+  function formatCurrencyVND(amount) {
+    // Sử dụng hàm toLocaleString() để định dạng số
+    // Cài đặt style là 'currency' và currency là 'VND'
+    return amount?.toLocaleString("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+  }
   return (
     // <CRow>
     //   <CCol xs={12}>
@@ -36,7 +54,7 @@ const AutionDetail = () => {
       <Col xs={12}>
         <Card className="mb-4">
           <Card.Header>
-            <strong>Thông Tin Chi Tiết Autionn với ID {auctionId} </strong>
+            <strong>Thông tin chi tiết buổi đấu giá </strong>
           </Card.Header>
           <Card.Body>
             <Form>
@@ -74,11 +92,17 @@ const AutionDetail = () => {
                           marginTop: "20px",
                         }}
                       >
-                        <video controls style={{ maxWidth: "100%" }}>
+                        {/* <video controls style={{ maxWidth: "100%" }}>
                           <source
                             src={auction?.product_id?.video}
                             type="video/mp4"
                           />
+                          Your browser does not support the video tag.
+                        </video> */}
+                        <video controls style={{ maxWidth: "100%" }}>
+                          {auction?.product_id?.video?.map((video, index) => (
+                            <source key={index} src={video} type="video/mp4" />
+                          ))}
                           Your browser does not support the video tag.
                         </video>
                       </div>
@@ -113,11 +137,20 @@ const AutionDetail = () => {
                       <Form.Group className="mb-3">
                         <Form.Label>Giá khởi điểm</Form.Label>
                         <Form.Control
-                          type="number"
                           placeholder="Giá khởi điểm"
                           readOnly={auctionId}
-                          value={auction?.starting_price}
+                          value={formatCurrencyVND(auction?.starting_price)}
                         />
+                      </Form.Group>
+                    </Card.Body>
+                  </Card>
+                  <Card style={{ marginTop: "10px" }}>
+                    <Card.Body>
+                      <Card.Title>Số lượng người tham gia đấu giá</Card.Title>
+                      <Form.Group className="mb-3">
+                        <Form.Label>
+                          Số lượng: {filterNumberMemberJoinRoom.length}
+                        </Form.Label>
                       </Form.Group>
                     </Card.Body>
                   </Card>
@@ -139,10 +172,9 @@ const AutionDetail = () => {
                       <Form.Group className="mb-3">
                         <Form.Label>Bước giá tối thiểu</Form.Label>
                         <Form.Control
-                          type="number"
                           readOnly={auctionId}
                           placeholder="Minimun Price Step"
-                          value={auction?.price_step}
+                          value={formatCurrencyVND(auction?.price_step)}
                         />
                       </Form.Group>
                       <Form.Group className="mb-3">

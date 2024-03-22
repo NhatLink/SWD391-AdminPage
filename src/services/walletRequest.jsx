@@ -29,4 +29,11 @@ export const ReportWalletServices = {
       },
     });
   },
+  getWalletHistory(data, token) {
+    return API.get(`/wallets/wallet-history/${data}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };

@@ -17,27 +17,18 @@ function Product() {
     console.log("Update item with id:", user._id);
     navigate(`/product-detail/${user._id}`);
   };
-
-  const handleDelete = (user) => {
-    console.log("Delete item with id:", user._id);
-  };
-
   return (
     <CRow>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>React Accordion</strong>
+            <strong>Product</strong>
           </CCardHeader>
           <CCardBody>
             <p className="text-medium-emphasis small">
-              Hiện thị các user có trong hệ thống{" "}
+              Hiện thị các sản phẩm có trong hệ thống{" "}
             </p>
-            <TableProduct
-              data={allProduct}
-              onUpdate={handleUpdate}
-              onDelete={handleDelete}
-            />
+            <TableProduct data={allProduct} onUpdate={handleUpdate} />
           </CCardBody>
         </CCard>
       </CCol>

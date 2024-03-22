@@ -9,11 +9,13 @@ import {
   CButton,
   CBadge,
 } from "@coreui/react";
-import { Image } from "react-bootstrap";
-import PropTypes from "prop-types"; // Import PropTypes
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 const TableAccount = (props) => {
   const { data, onUpdate, onDelete } = props;
+  // Lấy thông tin người dùng hiện tại từ redux store
+  const user = useSelector((state) => state.USER.currentUser);
 
   return (
     <CTable align="middle" className="mb-0 border" hover responsive>
@@ -23,55 +25,47 @@ const TableAccount = (props) => {
           <CTableHeaderCell>UserName</CTableHeaderCell>
           <CTableHeaderCell>FullName</CTableHeaderCell>
           <CTableHeaderCell>Email</CTableHeaderCell>
-          {/* <CTableHeaderCell>Gender</CTableHeaderCell> */}
-          {/* <CTableHeaderCell>Avatar</CTableHeaderCell> */}
-          {/* <CTableHeaderCell>Phone</CTableHeaderCell>
-          <CTableHeaderCell>Address</CTableHeaderCell> */}
           <CTableHeaderCell>Role</CTableHeaderCell>
           <CTableHeaderCell>Status</CTableHeaderCell>
           <CTableHeaderCell>Actions</CTableHeaderCell>
         </CTableRow>
       </CTableHead>
       <CTableBody>
-        {data.map((item, index) => (
-          <CTableRow key={index}>
-            <CTableDataCell>{index + 1}</CTableDataCell>
-            {/* <CTableDataCell style={{ minWidth: "auto", width: "auto" }}>
-              <Image
-                src={item.image}
-                alt="Orchid"
-                style={{ width: "10%", height: "auto" }}
-                roundedCircle
-              />
-            </CTableDataCell> */}
-            <CTableDataCell>{item.username}</CTableDataCell>
-            <CTableDataCell>{item.fullName}</CTableDataCell>
-            <CTableDataCell>{item.email}</CTableDataCell>
-            {/* <CTableDataCell>{item.gender}</CTableDataCell> */}
-            {/* <CTableDataCell>{item.phone}</CTableDataCell>
-            <CTableDataCell>{item.address}</CTableDataCell> */}
-            <CTableDataCell>{item.role_id.title}</CTableDataCell>
-            <CTableDataCell>
-              {item.status === true ? (
-                <CBadge color="success">Active</CBadge>
-              ) : (
-                <CBadge color="danger">Banned</CBadge>
-              )}
-            </CTableDataCell>
-            <CTableDataCell>
-              {onUpdate && (
-                <CButton color="success" onClick={() => onUpdate(item)}>
-                  Detail
-                </CButton>
-              )}{" "}
-              {onDelete && (
-                <CButton color="danger" onClick={() => onDelete(item)}>
-                  Delete
-                </CButton>
-              )}
-            </CTableDataCell>
-          </CTableRow>
-        ))}
+        {data.map((item, index) => {
+          // Kiểm tra nếu item không phải là "ADMIN" hoặc là "ADMIN" nhưng là user hiện tại
+          const isVisible = item.role_id.title !== "ADMIN";
+
+          return (
+            isVisible && (
+              <CTableRow key={index}>
+                <CTableDataCell>{index + 1}</CTableDataCell>
+                <CTableDataCell>{item.username}</CTableDataCell>
+                <CTableDataCell>{item.fullName}</CTableDataCell>
+                <CTableDataCell>{item.email}</CTableDataCell>
+                <CTableDataCell>{item.role_id.title}</CTableDataCell>
+                <CTableDataCell>
+                  {item.status === true ? (
+                    <CBadge color="success">Active</CBadge>
+                  ) : (
+                    <CBadge color="danger">Banned</CBadge>
+                  )}
+                </CTableDataCell>
+                <CTableDataCell>
+                  {onUpdate && (
+                    <CButton color="success" onClick={() => onUpdate(item)}>
+                      Detail
+                    </CButton>
+                  )}{" "}
+                  {onDelete && (
+                    <CButton color="danger" onClick={() => onDelete(item)}>
+                      Delete
+                    </CButton>
+                  )}
+                </CTableDataCell>
+              </CTableRow>
+            )
+          );
+        })}
       </CTableBody>
     </CTable>
   );
@@ -81,11 +75,13 @@ TableAccount.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      avatar: PropTypes.string,
-      registered: PropTypes.string,
-      role: PropTypes.string,
-      status: PropTypes.string,
+      username: PropTypes.string.isRequired,
+      fullName: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      role_id: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+      }).isRequired,
+      status: PropTypes.bool.isRequired,
     })
   ).isRequired,
   onUpdate: PropTypes.func,

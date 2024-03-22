@@ -24,6 +24,33 @@ const TableTrannsacton = ({ data = [], onConfirm, onDelete }) => {
     const date = new Date(dateString);
     return format(date, "dd/MM/yyyy - HH:mm");
   };
+  function formatCurrencyVND(amount) {
+    // Sử dụng hàm toLocaleString() để định dạng số
+    // Cài đặt style là 'currency' và currency là 'VND', loại bỏ ký hiệu tiền tệ
+    return amount
+      ?.toLocaleString("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      })
+      .replace(/\s*₫$/, " đ"); // Thay thế ký hiệu tiền tệ VND bằng " đ" và loại bỏ khoảng trắng
+  }
+
+  function formatString(inputString) {
+    // Tách chuỗi input dựa vào " - "
+    const parts = inputString.split(" - ");
+    if (parts.length === 2) {
+      // Gọi hàm formatCurrencyVND cho phần số và ghép lại với phần còn lại của chuỗi
+      const name = parts[0];
+      const amount = parseInt(parts[1], 10); // Chuyển đổi phần số thành kiểu integer
+      if (!isNaN(amount)) {
+        // Kiểm tra xem phần sau có phải là số hợp lệ không
+        const formattedAmount = formatCurrencyVND(amount);
+        return `${name} - ${formattedAmount}`;
+      }
+    }
+    // Trả về chuỗi gốc nếu không thể xử lý
+    return inputString;
+  }
   const showPaid = data.some((item) => item.status === false);
   const showUnPaid = data.some((item) => item.status === true);
   return (
@@ -61,7 +88,8 @@ const TableTrannsacton = ({ data = [], onConfirm, onDelete }) => {
             <CTableRow key={index}>
               <CTableDataCell>{index + 1}</CTableDataCell>
               <CTableDataCell>{item?.user_id?.fullName}</CTableDataCell>
-              <CTableDataCell>{item.description}</CTableDataCell>
+              {/* <CTableDataCell>{item?.description}</CTableDataCell> */}
+              <CTableDataCell>{formatString(item?.description)}</CTableDataCell>
               <CTableDataCell>
                 {formatDate(item?.create_timestamp)}
               </CTableDataCell>

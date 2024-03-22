@@ -113,7 +113,7 @@ const _nav = [
     component: CNavGroup,
     name: "Config",
     // to: "/buttons",
-    icon: <CIcon icon={cilWallet} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilChartLine} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,

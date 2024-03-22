@@ -17,6 +17,7 @@ import {
   AUCTIONING_COUNT,
   AUCTIONED_COUNT,
   NOT_YET_AUCTION_COUNT,
+  GET_AUCTION_MEMBER_JOIN_AUCTION_ROOM,
 } from "./action";
 
 const initialState = {
@@ -38,6 +39,7 @@ const initialState = {
   aboutToAuctionMember: [],
   auctioningMember: [],
   auctionedMember: [],
+  allMemberJoinInAuction: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -132,7 +134,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         auctionedMember: action.payload,
       };
-
+    case GET_AUCTION_MEMBER_JOIN_AUCTION_ROOM:
+      return {
+        ...state,
+        allMemberJoinInAuction: action.payload,
+      };
     default:
       return state;
   }

@@ -1,11 +1,18 @@
 import React, { useEffect } from "react";
 import {
+  CBadge,
   CButton,
   CCard,
   CCardBody,
   CCardHeader,
   CCol,
   CRow,
+  CTable,
+  CTableBody,
+  CTableDataCell,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
 } from "@coreui/react";
 import { Row, Col, Card, Image } from "react-bootstrap";
 import { useState } from "react";
@@ -28,9 +35,25 @@ import {
 import CustomTable from "../Aution/TableAution";
 import TableProduct from "../Product/TableProduct";
 import { useDispatch, useSelector } from "react-redux";
+import { actRequestGetByUserIdAsync } from "src/store/request/action";
+import { format } from "date-fns";
+import { actGetWalletHistoryByUserAsync } from "src/store/wallet/action";
 const DetailUser = () => {
   const { userId } = useParams(); // Lấy ID từ URL
   const navigate = useNavigate();
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return format(date, "dd/MM/yyyy - HH:mm");
+  };
+  function formatCurrencyVND(amount) {
+    // Sử dụng hàm toLocaleString() để định dạng số
+    // Cài đặt style là 'currency' và currency là 'VND'
+    return amount?.toLocaleString("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+  }
   const [data, setData] = useState([]);
   const [userEditData, setUserEditData] = useState();
   // const [notYet, setNotYet] = useState();
@@ -56,6 +79,8 @@ const DetailUser = () => {
   const auctionedAuctionMember = useSelector(
     (state) => state.AUCTION.auctionedMember
   );
+  const allRequestId = useSelector((state) => state.REQUEST.allRequestId);
+  const historyMoney = useSelector((state) => state.WALLET.walletHistory);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(actAllUserGetAsync(token));
@@ -69,6 +94,8 @@ const DetailUser = () => {
     dispatch(actAuctioningAuctionGetMemberAsync(userId, token));
     dispatch(actAuctionedAuctionGetMemberAsync(userId, token));
     dispatch(actAllUserGetAsync(token));
+    dispatch(actRequestGetByUserIdAsync(userId, token));
+    dispatch(actGetWalletHistoryByUserAsync(userId, token));
   }, [dispatch, token, userId]);
   useEffect(() => {
     const item = allUser.find((i) => i._id === userId);
@@ -117,21 +144,28 @@ const DetailUser = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Thông Tin Chi Tiết Người Dùng ID {userId} </strong>
+            <strong>Thông Tin Chi Tiết Người Dùng </strong>
           </CCardHeader>
           <CCardBody>
             <Row className="mt-1">
               {/* Card bên phải */}
               <Col md={4}>
                 <Card>
-                  <Image
-                    src={userEditData?.image}
-                    alt="Orchid"
-                    style={{ width: "50%", height: "auto" }}
-                    roundedCircle
-                  />
+                  <div className="d-flex justify-content-center">
+                    <Card.Img
+                      variant="center"
+                      src={userEditData?.image}
+                      style={{
+                        width: "200px",
+                        height: "200px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                      }}
+                      className="mt-3"
+                    />
+                  </div>
                   <Card.Body>
-                    <Card.Title>Full Name: {userEditData?.fullName}</Card.Title>
+                    <Card.Title>User Name: {userEditData?.username}</Card.Title>
                     <Card.Text>{userEditData?.email}</Card.Text>
                   </Card.Body>
                 </Card>
@@ -142,19 +176,22 @@ const DetailUser = () => {
                   <Card.Body>
                     <Card.Title>Thông Tin Cá Nhân</Card.Title>
                     <Card.Text>
-                      <strong>Họ và Tên:</strong> {userEditData?.name}
+                      <strong>Họ và Tên:</strong> {userEditData?.fullName}
+                    </Card.Text>
+                    <Card.Text>
+                      <strong>Giới tính:</strong> {userEditData?.gender}
                     </Card.Text>
                     <Card.Text>
                       <strong>Email:</strong> {userEditData?.email}
                     </Card.Text>
                     <Card.Text>
-                      <strong>Registered:</strong> {userEditData?.registered}
+                      <strong>Địa chỉ:</strong> {userEditData?.address}
                     </Card.Text>
                     <Card.Text>
-                      <strong>Role:</strong> {userEditData?.role}
+                      <strong>Điện thoại:</strong> {userEditData?.phone}
                     </Card.Text>
                     <Card.Text>
-                      <strong>status:</strong> {userEditData?.status}
+                      <strong>Role:</strong> {userEditData?.role_id?.title}
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -167,11 +204,12 @@ const DetailUser = () => {
         <CCol xs={12}>
           <CCard className="mb-4">
             <CCardHeader>
-              <strong>
-                Thông Tin Chi Tiết Product Người Dùng ID {userId}{" "}
-              </strong>
+              <strong>Thông tin chi tiết sản phẩm của người dùng </strong>
             </CCardHeader>
             <CCardBody>
+              <p className="text-medium-emphasis small">
+                Hiện thị các sản phẩm mà người dùng đã tạo
+              </p>
               <TableProduct
                 data={products}
                 onUpdate={handleDetailProduct}
@@ -186,11 +224,11 @@ const DetailUser = () => {
         <CCol xs={12}>
           <CCard className="mb-4">
             <CCardHeader>
-              <strong>Aution</strong>
+              <strong>Thông tin chi tiết đấu giá của người dùng</strong>
             </CCardHeader>
             <CCardBody>
               <p className="text-medium-emphasis small">
-                Hiện thị các đấu giá mà user đã tạo
+                Hiện thị các đấu giá mà người dùng đã tạo
               </p>
               <ChangeTabAution
                 chuaDienRaContent={
@@ -295,6 +333,94 @@ const DetailUser = () => {
           </CCard>
         </CCol>
       )}
+      <CCol xs={12}>
+        <CCard className="mb-4">
+          <CCardHeader>
+            <strong>Thông tin yêu cầu của người dùng </strong>
+          </CCardHeader>
+          <CCardBody style={{ maxHeight: "400px", overflowY: "auto" }}>
+            <p className="text-medium-emphasis small">
+              Hiện thị các yêu cầu mà người dùng đã tạo
+            </p>
+            <CTable striped bordered hover responsive>
+              <CTableHead>
+                <CTableRow>
+                  <CTableHeaderCell>ID</CTableHeaderCell>
+                  <CTableHeaderCell>Name</CTableHeaderCell>
+                  <CTableHeaderCell>Money</CTableHeaderCell>
+                  <CTableHeaderCell>Date Send</CTableHeaderCell>
+                  <CTableHeaderCell>Date Confirm</CTableHeaderCell>
+                  <CTableHeaderCell>Note</CTableHeaderCell>
+                  <CTableHeaderCell>Status</CTableHeaderCell>
+                </CTableRow>
+              </CTableHead>
+              <CTableBody>
+                {allRequestId?.map((item, index) => (
+                  <CTableRow key={index}>
+                    <CTableDataCell>{index + 1}</CTableDataCell>
+                    <CTableDataCell>{item?.user_id?.fullName}</CTableDataCell>
+                    <CTableDataCell>{item.description}</CTableDataCell>
+                    <CTableDataCell>
+                      {formatDate(item?.create_timestamp)}
+                    </CTableDataCell>
+                    <CTableDataCell>
+                      {formatDate(item?.update_timestamp)}
+                    </CTableDataCell>
+                    <CTableDataCell> {item.note}</CTableDataCell>
+                    <CTableDataCell>
+                      {" "}
+                      {item.status === true ? (
+                        <CBadge color="warning">chưa xử lý</CBadge>
+                      ) : (
+                        <CBadge color="success">đã xử lý</CBadge>
+                      )}
+                    </CTableDataCell>
+                  </CTableRow>
+                ))}
+              </CTableBody>
+            </CTable>
+          </CCardBody>
+        </CCard>
+      </CCol>
+      <CCol xs={12}>
+        <CCard className="mb-4">
+          <CCardHeader>
+            <strong>Thông tin lịch sử ví tiền của người dùng </strong>
+          </CCardHeader>
+          <CCardBody style={{ maxHeight: "400px", overflowY: "auto" }}>
+            <p className="text-medium-emphasis small">
+              Hiện thị lịch sử ví tiền mà người dùng đã sử dụng trong hệ thống
+            </p>
+            <CTable striped bordered hover responsive>
+              <CTableHead>
+                <CTableRow>
+                  <CTableHeaderCell>ID</CTableHeaderCell>
+                  <CTableHeaderCell>Money</CTableHeaderCell>
+                  <CTableHeaderCell>Date</CTableHeaderCell>
+                </CTableRow>
+              </CTableHead>
+              <CTableBody>
+                {historyMoney?.map((item, index) => (
+                  <CTableRow key={index}>
+                    <CTableDataCell>{index + 1}</CTableDataCell>
+                    <CTableDataCell
+                      style={{
+                        color: `${item?.type === "deposit" ? "green" : "red"}`,
+                      }}
+                    >
+                      {item?.type === "deposit" ? "+" : "-"}
+                      {formatCurrencyVND(item?.amount)}
+                    </CTableDataCell>
+                    <CTableDataCell>
+                      {formatDate(item?.timestamp)}
+                    </CTableDataCell>
+                  </CTableRow>
+                ))}
+              </CTableBody>
+            </CTable>
+          </CCardBody>
+        </CCard>
+      </CCol>
       <ModalConfirmDelete
         showProp={showDelete}
         handleClose={() => {
