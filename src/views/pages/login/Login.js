@@ -62,7 +62,8 @@ const Login = () => {
       })
       .catch((error) => {
         if (error.response) {
-          toast.error("Server error:", error.response.data);
+          // console.log(error);
+          toast.error(error.response.data.message);
         } else if (error.request) {
           toast.error("Network error:", error.request);
         } else {
